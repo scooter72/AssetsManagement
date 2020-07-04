@@ -1,0 +1,8 @@
+.vs
+*rsa
+*.pub
+*.dll
+*.pdb
+*/obj/**
+*/bin/**
+*/.DS_Store
