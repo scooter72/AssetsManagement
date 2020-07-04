@@ -12,7 +12,7 @@ namespace AssetsManagement.BLL
 
         public AssetManager()
         {
-            propertyManagement = AssetManagementDataAccessFactory.Instance.GetDataAccess();
+            propertyManagement = AssetManagementDataAccessFactory.Instance.GetDataAccess(AssetManagementDataAccessFactory.DataAccessType.MS_SQL);
         }
 
         public void AddAsset(Asset asset)
@@ -112,6 +112,21 @@ namespace AssetsManagement.BLL
         public Owner FindOwnerById(int id)
         {
             return propertyManagement.FindOwnerById(id);
+        }
+
+        public void AddTenant(Tenant tenant)
+        {
+            propertyManagement.AddTenant(tenant);
+        }
+
+        public City[] GetCities()
+        {
+            return propertyManagement.GetCities();
+        }
+
+        public Owner[] GetOwners()
+        {
+            return propertyManagement.GetOwners();
         }
     }
 }

@@ -46,5 +46,15 @@
     <Compile Include="IAssetManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssetsManagement.DAL\AssetsManagement.DAL.csproj">
+      <Project>{8610c084-e717-44f2-929c-fc37da0166cb}</Project>
+      <Name>AssetsManagement.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AssetsManagement.Model\AssetsManagement.Model.csproj">
+      <Project>{0660b706-627d-4cc1-9882-565d2521cd47}</Project>
+      <Name>AssetsManagement.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
