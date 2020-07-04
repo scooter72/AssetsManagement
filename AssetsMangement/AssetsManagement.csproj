@@ -20,6 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AssetsManagement.Model\AssetsManagement.Model.csproj" />
-    <ProjectReference Include="..\AssetsManagement.BLL\AssetsManagement.BLL.csproj" />
+    <ProjectReference Include="..\AssetsManagement.BLL\AssetsManagement2.BLL.csproj" />
   </ItemGroup>
 </Project>

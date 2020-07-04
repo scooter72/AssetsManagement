@@ -6,7 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement", "AssetsM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.Model", "AssetsManagement.Model\AssetsManagement.Model.csproj", "{EB854DC8-519C-4401-A396-80A606FF11EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.BLL", "AssetsManagement.BLL\AssetsManagement.BLL.csproj", "{A03F3D02-48B2-4860-8161-26D2FE9FC76D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement2.BLL", "AssetsManagement.BLL\AssetsManagement2.BLL.csproj", "{A03F3D02-48B2-4860-8161-26D2FE9FC76D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.DAL", "AssetsManagement.DAL\AssetsManagement.DAL.csproj", "{18D1559F-7DD4-477F-A95D-B425587A8EF1}"
 EndProject
