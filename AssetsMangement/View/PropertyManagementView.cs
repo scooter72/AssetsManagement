@@ -6,9 +6,9 @@ namespace AssetsManagement.View
 {
     public class PropertyManagementView
     {
-        private readonly IPropertyMangementManager manager;
+        private readonly IAssetManager manager;
         private const int Retries = 3;
-        public PropertyManagementView(IPropertyMangementManager manager)
+        public PropertyManagementView(IAssetManager manager)
         {
             this.manager = manager;
         }

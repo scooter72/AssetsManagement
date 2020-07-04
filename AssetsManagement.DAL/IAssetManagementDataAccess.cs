@@ -3,7 +3,7 @@ using AssetsManagement.Model;
 
 namespace AssetsManagement.DAL
 {
-    public interface IPropertyManagement
+    public interface IAssetManagementDataAccess
     {
         int AddRentalAgreement(RentalAgreement rentalAgreement);
         int AddAsset(Asset asset);
@@ -15,8 +15,6 @@ namespace AssetsManagement.DAL
         Owner[] GetOwners();
         Tenant[] GetTenants();
         RentalAgreement[] GetRentalAgreement();
-
-
         Asset FindAssetByAddress(Address address);
         Owner FindOwnerById(int id);
         Tenant FindTenatById(int id);

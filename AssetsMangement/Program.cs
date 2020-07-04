@@ -9,7 +9,7 @@ namespace AssetsManagement
         static void Main(string[] args)
         {
             PropertyManagementView view = new PropertyManagementView(
-                new PropertyMangementManager());
+                new AssetManager());
 
             view.Start();
 

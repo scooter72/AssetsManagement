@@ -1,13 +1,16 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement", "AssetsMangement\AssetsManagement.csproj", "{04BFDBAA-7467-4F91-A55D-DA9FEEC90028}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement", "AssetsMangement\AssetsManagement.csproj", "{04BFDBAA-7467-4F91-A55D-DA9FEEC90028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement.Model", "AssetsManagement.Model\AssetsManagement.Model.csproj", "{EB854DC8-519C-4401-A396-80A606FF11EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.Model", "AssetsManagement.Model\AssetsManagement.Model.csproj", "{EB854DC8-519C-4401-A396-80A606FF11EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement.BLL", "AssetsManagement.BLL\AssetsManagement.BLL.csproj", "{A03F3D02-48B2-4860-8161-26D2FE9FC76D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.BLL", "AssetsManagement.BLL\AssetsManagement.BLL.csproj", "{A03F3D02-48B2-4860-8161-26D2FE9FC76D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement.DAL", "AssetsManagement.DAL\AssetsManagement.DAL.csproj", "{18D1559F-7DD4-477F-A95D-B425587A8EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetsManagement.DAL", "AssetsManagement.DAL\AssetsManagement.DAL.csproj", "{18D1559F-7DD4-477F-A95D-B425587A8EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagementForms", "WindowsFormsApp1\AssetManagementForms.csproj", "{483FDFC2-96FE-4CB2-A14B-95AF89EAD775}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,5 +34,15 @@ Global
 		{18D1559F-7DD4-477F-A95D-B425587A8EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18D1559F-7DD4-477F-A95D-B425587A8EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18D1559F-7DD4-477F-A95D-B425587A8EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483FDFC2-96FE-4CB2-A14B-95AF89EAD775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483FDFC2-96FE-4CB2-A14B-95AF89EAD775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483FDFC2-96FE-4CB2-A14B-95AF89EAD775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483FDFC2-96FE-4CB2-A14B-95AF89EAD775}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F3D8FF8-AB18-40F2-9469-00765F536E04}
 	EndGlobalSection
 EndGlobal

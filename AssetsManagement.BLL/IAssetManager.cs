@@ -3,7 +3,7 @@ using AssetsManagement.Model;
 
 namespace AssetsManagement.BLL
 {
-    public interface IPropertyMangementManager
+    public interface IAssetManager
     {
         void AddAsset(Asset asset);
         void AddCity(City city);

@@ -6,13 +6,13 @@ using AssetsManagement.Model;
 namespace AssetsManagement.BLL
 {
 
-    public class PropertyMangementManager : IPropertyMangementManager
+    public class AssetManager : IAssetManager
     {
-        private readonly IPropertyManagement propertyManagement;
+        private readonly IAssetManagementDataAccess propertyManagement;
 
-        public PropertyMangementManager()
+        public AssetManager()
         {
-            propertyManagement = PropertyManagementFactory.Instance.get();
+            propertyManagement = AssetManagementDataAccessFactory.Instance.GetDataAccess();
         }
 
         public void AddAsset(Asset asset)

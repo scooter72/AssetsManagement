@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Data.SqlClient;
 using AssetsManagement.Model;
 
 namespace AssetsManagement.DAL
 {
-    public class SqlPropertyManagementDataAccess : IPropertyManagement
+    public class MsSqlAssetManagementDataAccess : IAssetManagementDataAccess
     {
-        public SqlPropertyManagementDataAccess()
+        private readonly string ConnectionString;
+
+        public MsSqlAssetManagementDataAccess()
         {
         }
 
@@ -16,7 +19,19 @@ namespace AssetsManagement.DAL
 
         public int AddCity(City city)
         {
-            throw new NotImplementedException();
+
+            String query = "INSERT INTO dbo.City (Symbol,Name) VALUES (@symbol,@name)";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(query, conn);
+                command.Parameters.AddWithValue("@symbol", city.Symbol);
+                command.Parameters.AddWithValue("@name", city.Name);
+
+                command.ExecuteNonQuery();
+            }
+            return city.Symbol;
         }
 
         public int AddCity(City[] cities)
