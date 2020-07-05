@@ -36,10 +36,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAssets = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewAssets = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.groupBoxAssets.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssets)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAddCity
@@ -113,7 +113,7 @@
             // 
             // groupBoxAssets
             // 
-            this.groupBoxAssets.Controls.Add(this.dataGridView1);
+            this.groupBoxAssets.Controls.Add(this.dataGridViewAssets);
             this.groupBoxAssets.Location = new System.Drawing.Point(140, 18);
             this.groupBoxAssets.Name = "groupBoxAssets";
             this.groupBoxAssets.Size = new System.Drawing.Size(648, 388);
@@ -121,18 +121,19 @@
             this.groupBoxAssets.TabStop = false;
             this.groupBoxAssets.Text = "Assets";
             // 
-            // dataGridView1
+            // dataGridViewAssets
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 21);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(614, 349);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridViewAssets.AllowUserToAddRows = false;
+            this.dataGridViewAssets.AllowUserToDeleteRows = false;
+            this.dataGridViewAssets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAssets.Location = new System.Drawing.Point(15, 21);
+            this.dataGridViewAssets.Name = "dataGridViewAssets";
+            this.dataGridViewAssets.ReadOnly = true;
+            this.dataGridViewAssets.RowHeadersVisible = false;
+            this.dataGridViewAssets.RowHeadersWidth = 51;
+            this.dataGridViewAssets.RowTemplate.Height = 24;
+            this.dataGridViewAssets.Size = new System.Drawing.Size(614, 349);
+            this.dataGridViewAssets.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -151,7 +152,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBoxAssets.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssets)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -166,7 +167,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.GroupBox groupBoxAssets;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewAssets;
     }
 }
 

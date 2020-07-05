@@ -21,7 +21,10 @@ namespace AssetsManagementForm
         {
             this.assetManager = assetManager;
             InitializeComponent();
+            SetAssetGridDataSource(assetManager.GetAssets());
         }
+
+
 
         private void buttonAddCity_Click(object sender, EventArgs e)
         {
@@ -72,13 +75,34 @@ namespace AssetsManagementForm
             {
                 Asset asset = form.Asset;
                 assetManager.AddAsset(asset);
-                SetStatus($"{asset} added to repositoy");
+                SetAssetGridDataSource(assetManager.GetAssets());
+                SetStatus($"Item added to repositoy");
             }
+        }
+
+        private void SetAssetGridDataSource(Asset[] assets)
+        {
+            List<AssetRow> dataSource = new List<AssetRow>();
+
+            foreach (var asset in assets)
+            {
+                dataSource.Add(new AssetRow { Id = asset.Id, City = asset.Address.City.Name, Owner = asset.Owner.Name, Street = asset.Address.Street, HouseNumber = asset.Address.HouseNumber });
+            }
+            dataGridViewAssets.DataSource = dataSource;
         }
 
         private void buttonAddRentalAgreement_Click(object sender, EventArgs e)
         {
 
+        }
+
+        class AssetRow 
+        {
+            public int Id { get; set; }
+            public String Owner { get; set; }
+            public String City { get; set; }
+            public String Street { get; set; }
+            public int HouseNumber { get; set; }
         }
     }
 }

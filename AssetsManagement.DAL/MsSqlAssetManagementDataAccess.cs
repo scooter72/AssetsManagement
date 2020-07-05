@@ -143,7 +143,39 @@ namespace AssetsManagement.DAL
 
         public Asset[] GetAssets()
         {
-            throw new NotImplementedException();
+            string sql = "SELECT [Asset].[Id], [Owner].[Id], [Owner].[Name], [City].[Symbol], [City].[Name], " +
+                         "[Address].[Street], [Address].[HouseNumber]" +
+                         "FROM [Asset]" +
+                         "INNER JOIN [Owner] on [Asset].[Owner] = [Owner].[Id]" +
+                         "INNER JOIN [Address] on [Asset].[Address] = [Address].[Id]" +
+                         "INNER JOIN [City] on [Address].[City] = [City].[Symbol]";
+            List<Asset> assets = new List<Asset>();
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = sql;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    assets.Add(
+                        new Asset
+                        {
+                            Id = reader.GetInt32(0),
+                            Owner = new Owner { Id = reader.GetInt32(1), Name = reader.GetString(2) },
+                            Address = new Address
+                            {
+                                City = new City { Symbol = reader.GetInt32(3), Name = reader.GetString(4) },
+                                Street = reader.GetString(5),
+                                HouseNumber = reader.GetInt32(6)
+                            }
+                        }
+                    );
+                }
+            }
+
+            return assets.ToArray();
         }
 
         public City[] GetCities()
