@@ -16,12 +16,14 @@ namespace AssetsManagementForm
     public partial class MainForm : Form
     {
         private readonly IAssetManager assetManager;
+        private readonly List<AssetRow> assetGridDataSource = new List<AssetRow>();
 
         public MainForm(IAssetManager assetManager)
         {
             this.assetManager = assetManager;
             InitializeComponent();
             SetAssetGridDataSource(assetManager.GetAssets());
+            dataGridViewAssets.DataSource = assetGridDataSource;
         }
 
 
@@ -34,7 +36,7 @@ namespace AssetsManagementForm
             {
                 City city = form.City;
                 assetManager.AddCity(city);
-                SetStatus($"{city} added to repositoy");
+                SetStatus($"City added to repositoy");
             }
         }
 
@@ -46,7 +48,7 @@ namespace AssetsManagementForm
             {
                 Owner owner = form.AssetOwner;
                 assetManager.AddOwner(owner);
-               SetStatus($"{owner} added to repositoy");
+               SetStatus($"Owner added to repositoy");
             }
         }
 
@@ -58,7 +60,7 @@ namespace AssetsManagementForm
             {
                 Tenant tenant = form.Tenant;
                 assetManager.AddTenant(tenant);
-               SetStatus($"{tenant} added to repositoy");
+               SetStatus($"Tenant added to repositoy");
             }
         }
 
@@ -74,26 +76,49 @@ namespace AssetsManagementForm
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 Asset asset = form.Asset;
-                assetManager.AddAsset(asset);
-                SetAssetGridDataSource(assetManager.GetAssets());
-                SetStatus($"Item added to repositoy");
+                asset.Id = assetManager.AddAsset(asset);
+                assetGridDataSource.Add(new AssetRow
+                {
+                    Id = asset.Id,
+                    City = asset.Address.City.Name,
+                    Owner = asset.Owner.Name,
+                    Street = asset.Address.Street,
+                    HouseNumber = asset.Address.HouseNumber
+                });
+                dataGridViewAssets.DataSource = null;
+                dataGridViewAssets.DataSource = assetGridDataSource;
+                SetStatus($"Asset added to repositoy");
             }
         }
 
         private void SetAssetGridDataSource(Asset[] assets)
         {
-            List<AssetRow> dataSource = new List<AssetRow>();
+            assetGridDataSource.Clear();
 
             foreach (var asset in assets)
             {
-                dataSource.Add(new AssetRow { Id = asset.Id, City = asset.Address.City.Name, Owner = asset.Owner.Name, Street = asset.Address.Street, HouseNumber = asset.Address.HouseNumber });
+                assetGridDataSource.Add(
+                    new AssetRow 
+                    { 
+                        Id = asset.Id, 
+                        City = asset.Address.City.Name, 
+                        Owner = asset.Owner.Name, 
+                        Street = asset.Address.Street, 
+                        HouseNumber = asset.Address.HouseNumber 
+                    }
+                );
             }
-            dataGridViewAssets.DataSource = dataSource;
         }
 
         private void buttonAddRentalAgreement_Click(object sender, EventArgs e)
         {
-
+            AddRentalAgreementtForm form = new AddRentalAgreementtForm(assetManager.GetAssets(), assetManager.GetTenats());
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                RentalAgreement rentalAgreement = form.RentalAgreement;
+                assetManager.AddRentalAgreement(rentalAgreement);
+                SetStatus($"Rental agreement added to repositoy");
+            }
         }
 
         class AssetRow 
@@ -103,6 +128,26 @@ namespace AssetsManagementForm
             public String City { get; set; }
             public String Street { get; set; }
             public int HouseNumber { get; set; }
+        }
+
+        private void dataGridViewAssets_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewAssets.SelectedRows.Count > 0)
+            {
+                labelRentalAgreementTenant.Text = string.Empty;
+                labelStartRentalAgreemnt.Text = string.Empty;
+                labelRentalAgreemntEnd.Text = string.Empty;
+
+                AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
+                RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
+                if (rentalAgreement != null)
+                {
+                    Tenant tenant = assetManager.FindTenantById(rentalAgreement.Tenant);
+                    labelRentalAgreementTenant.Text = tenant.Name;
+                    labelStartRentalAgreemnt.Text = rentalAgreement.Start.ToString("dd/MM/yyyy");
+                    labelRentalAgreemntEnd.Text = rentalAgreement.End.ToString("dd/MM/yyyy");
+                }
+            }
         }
     }
 }

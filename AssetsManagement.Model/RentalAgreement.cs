@@ -12,6 +12,5 @@ namespace AssetsManagement.Model
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public int Tenant { get; set; }
-        public int Owner { get; set; }
     }
 }

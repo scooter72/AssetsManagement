@@ -15,7 +15,7 @@ namespace AssetsManagement.BLL
             dataAccess = AssetManagementDataAccessFactory.Instance.GetDataAccess(AssetManagementDataAccessFactory.DataAccessType.MS_SQL);
         }
 
-        public void AddAsset(Asset asset)
+        public int AddAsset(Asset asset)
         {
             if (asset == null || asset.Owner == null)
             {
@@ -29,7 +29,7 @@ namespace AssetsManagement.BLL
 
             ValidateAddress(asset.Address);
 
-            dataAccess.AddAsset(asset);
+            return dataAccess.AddAsset(asset);
         }
 
         private void ValidateAddress(Address address)
@@ -132,6 +132,26 @@ namespace AssetsManagement.BLL
         public Asset[] GetAssets()
         {
            return dataAccess.GetAssets();
+        }
+
+        public Tenant[] GetTenats()
+        {
+            return dataAccess.GetTenants();
+        }
+
+        public void AddRentalAgreement(RentalAgreement rentalAgreement)
+        {
+            dataAccess.AddRentalAgreement(rentalAgreement);
+        }
+
+        public RentalAgreement FindRentalAgreement(int assetId)
+        {
+            return dataAccess.FindRentalAgreementtByAssetId(assetId);
+        }
+
+        public Tenant FindTenantById(int tenantId)
+        {
+            return dataAccess.FindTenatById(tenantId);
         }
     }
 }

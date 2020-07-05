@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.Net;
 using AssetsManagement.Model;
 
 namespace AssetsManagement.DAL
 {
     public class MsSqlAssetManagementDataAccess : IAssetManagementDataAccess
     {
-        private readonly string ConnectionString = "Server=.;Database=AssetsManagement;User Id=amuser;Password=Pa$$W0Rd;";
+        private readonly string ConnectionString;
 
         public MsSqlAssetManagementDataAccess()
         {
+            ConnectionString = ConfigurationManager.AppSettings.Get("ConnectionString");
+            
+            if (string.IsNullOrEmpty(ConnectionString)) 
+            {
+                throw new Exception("Database sonnection string is not defined");
+            }
         }
 
         public int AddAsset(Asset asset)
@@ -84,7 +92,24 @@ namespace AssetsManagement.DAL
 
         public int AddRentalAgreement(RentalAgreement rentalAgreement)
         {
-            throw new NotImplementedException();
+            String query = "INSERT INTO RentalAgreement (Asset,Tenant,StartDate,EndDate) VALUES (@asset,@tenant,@start,@end);" +
+                           "SELECT scope_identity();";
+            int id;
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@asset", rentalAgreement.AssetId);
+                command.Parameters.AddWithValue("@tenant", rentalAgreement.Tenant);
+                command.Parameters.AddWithValue("@start", rentalAgreement.Start);
+                command.Parameters.AddWithValue("@end", rentalAgreement.End);
+
+                id = Convert.ToInt32(command.ExecuteScalar());
+            }
+
+            return id;
         }
 
         public int AddTenant(Tenant tenant)
@@ -133,12 +158,50 @@ namespace AssetsManagement.DAL
 
         public RentalAgreement FindRentalAgreementtByAssetId(int id)
         {
-            throw new NotImplementedException();
+            RentalAgreement rentalAgreement = null;
+            String query = "SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement WHERE Asset = @id";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    rentalAgreement = new RentalAgreement { 
+                        Id = reader.GetInt32(0), 
+                        AssetId = reader.GetInt32(1),
+                        Tenant  = reader.GetInt32(2),
+                        Start  = reader.GetDateTime(3),
+                        End  = reader.GetDateTime(4),
+                    };
+                }
+            }
+
+            return rentalAgreement;
         }
 
         public Tenant FindTenatById(int id)
         {
-            throw new NotImplementedException();
+            Tenant tenant = null;
+            String query = "SELECT Id,Name FROM Tenant WHERE Id = @id";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    tenant = new Tenant { Id = reader.GetInt32(0), Name = reader.GetString(1) };
+                }
+            }
+
+            return tenant;
         }
 
         public Asset[] GetAssets()
@@ -225,7 +288,22 @@ namespace AssetsManagement.DAL
 
         public Tenant[] GetTenants()
         {
-            throw new NotImplementedException();
+            List<Tenant> tenants = new List<Tenant>();
+            String query = "SELECT Id,Name FROM Tenant";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    tenants.Add(new Tenant { Id = reader.GetInt32(0), Name = reader.GetString(1) });
+                }
+            }
+
+            return tenants.ToArray();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace AssetsManagement.BLL
 {
     public interface IAssetManager
     {
-        void AddAsset(Asset asset);
+        int AddAsset(Asset asset);
         void AddCity(City city);
         void AddOwner(Owner owner);
         Owner FindOwnerById(int id);
@@ -16,5 +16,9 @@ namespace AssetsManagement.BLL
         Asset[] GetAssets();
 
         Owner[] GetOwners();
+        Tenant[] GetTenats();
+        void AddRentalAgreement(RentalAgreement rentalAgreement);
+        RentalAgreement FindRentalAgreement(int assetId);
+        Tenant FindTenantById(int tenant);
     }
 }
