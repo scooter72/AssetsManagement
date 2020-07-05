@@ -1,6 +1,6 @@
-﻿namespace AssetsManagementForm
+﻿namespace AssetsManagementForms
 {
-    partial class AddCityForm
+    partial class AddTenantForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxSymbol = new System.Windows.Forms.TextBox();
+            this.textBoxId = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -41,9 +41,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 17);
+            this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Symbol (0-9):";
+            this.label1.Text = "Id (0-9):";
             // 
             // label2
             // 
@@ -54,14 +54,14 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Name:";
             // 
-            // textBoxSymbol
+            // textBoxId
             // 
-            this.textBoxSymbol.Location = new System.Drawing.Point(107, 28);
-            this.textBoxSymbol.Name = "textBoxSymbol";
-            this.textBoxSymbol.Size = new System.Drawing.Size(226, 22);
-            this.textBoxSymbol.TabIndex = 2;
-            this.textBoxSymbol.TextChanged += new System.EventHandler(this.textBoxSymbol_TextChanged);
-            this.textBoxSymbol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSymbol_KeyPress);
+            this.textBoxId.Location = new System.Drawing.Point(107, 28);
+            this.textBoxId.Name = "textBoxId";
+            this.textBoxId.Size = new System.Drawing.Size(226, 22);
+            this.textBoxId.TabIndex = 2;
+            this.textBoxId.TextChanged += new System.EventHandler(this.textBoxId_TextChanged);
+            this.textBoxId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSymbol_KeyPress);
             // 
             // textBoxName
             // 
@@ -92,7 +92,7 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // AddCityForm
+            // AddTenantForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -103,15 +103,15 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.textBoxSymbol);
+            this.Controls.Add(this.textBoxId);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AddCityForm";
+            this.Name = "AddTenantForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Add City";
+            this.Text = "Add Tenant";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,7 +121,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxSymbol;
+        private System.Windows.Forms.TextBox textBoxId;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;

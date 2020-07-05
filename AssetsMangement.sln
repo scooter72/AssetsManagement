@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement.Model", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagement.DAL", "AssetsManagement.DAL\AssetsManagement.DAL.csproj", "{8610C084-E717-44F2-929C-FC37DA0166CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagementForm", "AssetsManagementForm\AssetsManagementForm.csproj", "{425B23AD-7F44-4F2E-A881-B62C32736B9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsManagementForms", "AssetsManagementForms\AssetsManagementForms.csproj", "{425B23AD-7F44-4F2E-A881-B62C32736B9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

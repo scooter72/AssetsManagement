@@ -1,4 +1,4 @@
-﻿namespace AssetsManagementForm
+﻿namespace AssetsManagementForms
 {
     partial class AddRentalAgreementtForm
     {

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AssetsManagementForm
+namespace AssetsManagementForms
 {
     public partial class AddOwnerForm : Form
     {

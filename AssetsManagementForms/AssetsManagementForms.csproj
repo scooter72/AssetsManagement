@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{425B23AD-7F44-4F2E-A881-B62C32736B9A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AssetsManagementForm</RootNamespace>
+    <RootNamespace>AssetsManagementForms</RootNamespace>
     <AssemblyName>AssetsManagementForm</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -111,6 +111,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
