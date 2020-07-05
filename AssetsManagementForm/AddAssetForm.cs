@@ -13,31 +13,46 @@ namespace AssetsManagementForm
 {
     public partial class AddAssetForm : Form
     {
-        public AddAssetForm (City[] cities, Owner[] owners)
+        public AddAssetForm(City[] cities, Owner[] owners)
         {
             InitializeComponent();
-            comboBox2.DataSource = cities;
-            comboBox2.DisplayMember = "Name"; // Column Name
-            comboBox2.ValueMember = "Symbol";  // Column Name
-            comboBox1.DataSource = owners;
-            comboBox1.DisplayMember = "Name"; // Column Name
-            comboBox1.ValueMember = "Id";  // Column Name
+            //data binding
+            comboBoxCities.DataSource = cities;
+            comboBoxCities.DisplayMember = "Name"; // Column Name
+            comboBoxCities.ValueMember = "Symbol";  // Column Name
+            comboBoxOwners.DataSource = owners;
+            comboBoxOwners.DisplayMember = "Name"; // Column Name
+            comboBoxOwners.ValueMember = "Id";  // Column Name
         }
 
-        public int Id { get => int.Parse(textBoxId.Text); set => textBoxId.Text = value.ToString(); }
-        public string TeanatName { get => textBoxName.Text; set => textBoxName.Text = value; }
-
-        private void textBoxName_TextChanged(object sender, EventArgs e)
+        public Asset Asset
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            get
+            {
+                return new Asset
+                {
+                    Owner = (Owner)comboBoxOwners.SelectedItem,
+                    Address = new Address
+                    {
+                        City = (City)comboBoxCities.SelectedItem,
+                        Street = textBoxStreet.Text.Trim(),
+                        HouseNumber = int.Parse(textBoxHouseNumber.Text)
+                    }
+                };
+            }
         }
 
-        private void textBoxId_TextChanged(object sender, EventArgs e)
+        private void textBoxStreet_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            buttonOK.Enabled = textBoxHouseNumber.Text.Length > 0 && textBoxStreet.Text.Length > 0;
         }
 
-        private void textBoxSymbol_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxHouseNumber_TextChanged(object sender, EventArgs e)
+        {
+            buttonOK.Enabled = textBoxHouseNumber.Text.Length > 0 && textBoxStreet.Text.Length > 0;
+        }
+
+        private void textBoxHouseNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             List<Keys> allowdKeys = new List<Keys>() 
             { 

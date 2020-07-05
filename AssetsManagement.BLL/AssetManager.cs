@@ -8,11 +8,11 @@ namespace AssetsManagement.BLL
 
     public class AssetManager : IAssetManager
     {
-        private readonly IAssetManagementDataAccess propertyManagement;
+        private readonly IAssetManagementDataAccess dataAccess;
 
         public AssetManager()
         {
-            propertyManagement = AssetManagementDataAccessFactory.Instance.GetDataAccess(AssetManagementDataAccessFactory.DataAccessType.MS_SQL);
+            dataAccess = AssetManagementDataAccessFactory.Instance.GetDataAccess(AssetManagementDataAccessFactory.DataAccessType.MS_SQL);
         }
 
         public void AddAsset(Asset asset)
@@ -22,14 +22,14 @@ namespace AssetsManagement.BLL
                 throw new ArgumentException("Null input");
             }
 
-            if (propertyManagement.FindOwnerById(asset.Owner.Id) == null)
+            if (dataAccess.FindOwnerById(asset.Owner.Id) == null)
             {
                 throw new ArgumentException("owner not found");
             }
 
             ValidateAddress(asset.Address);
 
-            propertyManagement.AddAsset(asset);
+            dataAccess.AddAsset(asset);
         }
 
         private void ValidateAddress(Address address)
@@ -62,7 +62,7 @@ namespace AssetsManagement.BLL
         {
             ValidateCity(city);
 
-            propertyManagement.AddCity(city);
+            dataAccess.AddCity(city);
         }
 
         private void ValidateCity(City city)
@@ -100,33 +100,38 @@ namespace AssetsManagement.BLL
                 throw new ArgumentException("Invalid id");
             }
 
-            propertyManagement.AddOwner(owner);
+            dataAccess.AddOwner(owner);
         }
 
         public City FindCityByName(string name)
         {
-            return propertyManagement.GetCities()
+            return dataAccess.GetCities()
                 .FirstOrDefault(c => c.Name.Equals(name));
         }
 
         public Owner FindOwnerById(int id)
         {
-            return propertyManagement.FindOwnerById(id);
+            return dataAccess.FindOwnerById(id);
         }
 
         public void AddTenant(Tenant tenant)
         {
-            propertyManagement.AddTenant(tenant);
+            dataAccess.AddTenant(tenant);
         }
 
         public City[] GetCities()
         {
-            return propertyManagement.GetCities();
+            return dataAccess.GetCities();
         }
 
         public Owner[] GetOwners()
         {
-            return propertyManagement.GetOwners();
+            return dataAccess.GetOwners();
+        }
+
+        public Asset[] GetAssets()
+        {
+           return dataAccess.GetAssets();
         }
     }
 }

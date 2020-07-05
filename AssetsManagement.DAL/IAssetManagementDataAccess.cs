@@ -19,5 +19,6 @@ namespace AssetsManagement.DAL
         Owner FindOwnerById(int id);
         Tenant FindTenatById(int id);
         RentalAgreement FindRentalAgreementtByAssetId(int id);
+        Asset[] GetAssets();
     }
 }

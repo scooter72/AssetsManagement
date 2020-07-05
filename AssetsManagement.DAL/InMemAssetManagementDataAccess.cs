@@ -109,5 +109,10 @@ namespace AssetsManagement.DAL
         {
             return rentalAgreements.Values.ToArray();
         }
+
+        public Asset[] GetAssets()
+        {
+            return assets.Values.ToArray();
+        }
     }
 }

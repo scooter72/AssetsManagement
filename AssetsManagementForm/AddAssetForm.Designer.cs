@@ -30,12 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxId = new System.Windows.Forms.TextBox();
-            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.textBoxHouseNumber = new System.Windows.Forms.TextBox();
+            this.textBoxStreet = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxOwners = new System.Windows.Forms.ComboBox();
+            this.comboBoxCities = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -58,22 +58,22 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Owner:";
             // 
-            // textBoxId
+            // textBoxHouseNumber
             // 
-            this.textBoxId.Location = new System.Drawing.Point(145, 110);
-            this.textBoxId.Name = "textBoxId";
-            this.textBoxId.Size = new System.Drawing.Size(226, 22);
-            this.textBoxId.TabIndex = 2;
-            this.textBoxId.TextChanged += new System.EventHandler(this.textBoxId_TextChanged);
-            this.textBoxId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSymbol_KeyPress);
+            this.textBoxHouseNumber.Location = new System.Drawing.Point(145, 110);
+            this.textBoxHouseNumber.Name = "textBoxHouseNumber";
+            this.textBoxHouseNumber.Size = new System.Drawing.Size(226, 22);
+            this.textBoxHouseNumber.TabIndex = 2;
+            this.textBoxHouseNumber.TextChanged += new System.EventHandler(this.textBoxHouseNumber_TextChanged);
+            this.textBoxHouseNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxHouseNumber_KeyPress);
             // 
-            // textBoxName
+            // textBoxStreet
             // 
-            this.textBoxName.Location = new System.Drawing.Point(145, 82);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(226, 22);
-            this.textBoxName.TabIndex = 3;
-            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            this.textBoxStreet.Location = new System.Drawing.Point(145, 82);
+            this.textBoxStreet.Name = "textBoxStreet";
+            this.textBoxStreet.Size = new System.Drawing.Size(226, 22);
+            this.textBoxStreet.TabIndex = 3;
+            this.textBoxStreet.TextChanged += new System.EventHandler(this.textBoxStreet_TextChanged);
             // 
             // buttonOK
             // 
@@ -96,21 +96,21 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // comboBoxOwners
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(145, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(226, 24);
-            this.comboBox1.TabIndex = 6;
+            this.comboBoxOwners.FormattingEnabled = true;
+            this.comboBoxOwners.Location = new System.Drawing.Point(145, 22);
+            this.comboBoxOwners.Name = "comboBoxOwners";
+            this.comboBoxOwners.Size = new System.Drawing.Size(226, 24);
+            this.comboBoxOwners.TabIndex = 6;
             // 
-            // comboBox2
+            // comboBoxCities
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(145, 52);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(226, 24);
-            this.comboBox2.TabIndex = 8;
+            this.comboBoxCities.FormattingEnabled = true;
+            this.comboBoxCities.Location = new System.Drawing.Point(145, 52);
+            this.comboBoxCities.Name = "comboBoxCities";
+            this.comboBoxCities.Size = new System.Drawing.Size(226, 24);
+            this.comboBoxCities.TabIndex = 8;
             // 
             // label3
             // 
@@ -139,13 +139,13 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(392, 195);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBoxCities);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxOwners);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.textBoxId);
+            this.Controls.Add(this.textBoxStreet);
+            this.Controls.Add(this.textBoxHouseNumber);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -163,12 +163,12 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxId;
-        private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.TextBox textBoxHouseNumber;
+        private System.Windows.Forms.TextBox textBoxStreet;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxOwners;
+        private System.Windows.Forms.ComboBox comboBoxCities;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
     }

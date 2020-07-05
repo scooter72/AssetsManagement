@@ -29,7 +29,7 @@ namespace AssetsManagementForm
             
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                City city = new City { Symbol = form.Symbol, Name = form.CityName };
+                City city = form.City;
                 assetManager.AddCity(city);
                 SetStatus($"{city} added to repositoy");
             }
@@ -41,7 +41,7 @@ namespace AssetsManagementForm
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Owner owner = new Owner { Id = form.Id, Name = form.OwnerName };
+                Owner owner = form.AssetOwner;
                 assetManager.AddOwner(owner);
                SetStatus($"{owner} added to repositoy");
             }
@@ -53,7 +53,7 @@ namespace AssetsManagementForm
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                Tenant tenant = new Tenant { Id = form.Id, Name = form.TeanatName };
+                Tenant tenant = form.Tenant;
                 assetManager.AddTenant(tenant);
                SetStatus($"{tenant} added to repositoy");
             }
@@ -70,6 +70,9 @@ namespace AssetsManagementForm
             AddAssetForm form = new AddAssetForm(assetManager.GetCities(), assetManager.GetOwners());
             if (form.ShowDialog(this) == DialogResult.OK)
             {
+                Asset asset = form.Asset;
+                assetManager.AddAsset(asset);
+                SetStatus($"{asset} added to repositoy");
             }
         }
 

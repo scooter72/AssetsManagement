@@ -12,6 +12,9 @@ namespace AssetsManagement.BLL
         City FindCityByName(string name);
         void AddTenant(Tenant tenant);
         City[] GetCities();
+        
+        Asset[] GetAssets();
+
         Owner[] GetOwners();
     }
 }

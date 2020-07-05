@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssetsManagement.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,8 +18,18 @@ namespace AssetsManagementForm
             InitializeComponent();
         }
 
-        public int Symbol { get => int.Parse(textBoxSymbol.Text); set => textBoxSymbol.Text = value.ToString(); }
-        public string CityName { get => textBoxName.Text; set => textBoxName.Text = value; }
+        internal City City
+        {
+            get { return new City { Symbol = Symbol, Name = CityName }; }
+            set 
+            {
+                textBoxSymbol.Text = value.Symbol.ToString();
+                textBoxName.Text = value.Name; 
+            } 
+        }
+
+        private int Symbol { get => int.Parse(textBoxSymbol.Text); set => textBoxSymbol.Text = value.ToString(); }
+        private string CityName { get => textBoxName.Text; set => textBoxName.Text = value; }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
