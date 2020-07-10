@@ -13,9 +13,13 @@ namespace AssetsManagementForms
 {
     public partial class AddTenantForm : Form
     {
-        public AddTenantForm()
+        private Tenant[] tenants;
+        private const string IdInUse = "Id in use";
+
+        public AddTenantForm(Tenant[] tenants)
         {
             InitializeComponent();
+            this.tenants = tenants;
         }
 
         internal Tenant Tenant
@@ -30,14 +34,47 @@ namespace AssetsManagementForms
         private int Id { get => int.Parse(textBoxId.Text); set => textBoxId.Text = value.ToString(); }
         private string TenantName { get => textBoxName.Text; set => textBoxName.Text = value; }
 
+
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
         }
 
         private void textBoxId_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
+        }
+
+        private void InputTextChanged()
+        {
+            buttonOK.Enabled = IsNameValid && IsIdlValid;
+            SetErrorText();
+        }
+
+
+        private bool IsNameValid
+        {
+            get => textBoxName.Text.Length > 0;
+        }
+
+
+        private bool IsIdlValid
+        {
+            get => textBoxId.Text.Length > 0 && !(IsIdInUse);
+        }
+
+        private bool IsIdInUse
+        {
+            get => tenants.Any(c => c.Id.ToString().Equals(textBoxId.Text));
+        }
+
+        private void SetErrorText()
+        {
+            labelError.Text = string.Empty;
+            if (IsIdInUse)
+            {
+                labelError.Text = IdInUse;
+            }
         }
 
         private void textBoxSymbol_KeyPress(object sender, KeyPressEventArgs e)

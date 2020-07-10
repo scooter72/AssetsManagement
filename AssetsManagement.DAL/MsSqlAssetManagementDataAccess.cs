@@ -294,9 +294,34 @@ namespace AssetsManagement.DAL
             return owners.ToArray();
         }
 
-        public RentalAgreement[] GetRentalAgreement()
+        public RentalAgreement[] GetRentalAgreements()
         {
-            throw new NotImplementedException();
+            List<RentalAgreement> rentalAgreements = new List<RentalAgreement>();
+            String query = "SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                SqlDataReader reader = command.ExecuteReader();
+                
+                while (reader.Read())
+                {
+                    rentalAgreements.Add(
+                        new RentalAgreement
+                        {
+                            Id = reader.GetInt32(0),
+                            AssetId = reader.GetInt32(1),
+                            Tenant = reader.GetInt32(2),
+                            Start = reader.GetDateTime(3),
+                            End = reader.GetDateTime(4),
+                        }
+                    );
+                }
+            }
+
+            return rentalAgreements.ToArray();
         }
 
         public Tenant[] GetTenants()

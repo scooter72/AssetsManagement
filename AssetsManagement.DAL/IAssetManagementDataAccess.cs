@@ -14,7 +14,7 @@ namespace AssetsManagement.DAL
         City[] GetCities();
         Owner[] GetOwners();
         Tenant[] GetTenants();
-        RentalAgreement[] GetRentalAgreement();
+        RentalAgreement[] GetRentalAgreements();
         Asset FindAssetByAddress(Address address);
         Owner FindOwnerById(int id);
         Tenant FindTenatById(int id);

@@ -20,5 +20,6 @@ namespace AssetsManagement.BLL
         void AddRentalAgreement(RentalAgreement rentalAgreement);
         RentalAgreement FindRentalAgreement(int assetId);
         Tenant FindTenantById(int tenant);
+        RentalAgreement[] GetRentalAgreements();
     }
 }

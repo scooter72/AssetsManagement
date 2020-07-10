@@ -43,7 +43,7 @@
             this.label1.Location = new System.Drawing.Point(12, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 17);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Symbol (0-9):";
             // 
             // label2
@@ -52,7 +52,7 @@
             this.label2.Location = new System.Drawing.Point(12, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 17);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 5;
             this.label2.Text = "Name:";
             // 
             // textBoxSymbol
@@ -60,7 +60,7 @@
             this.textBoxSymbol.Location = new System.Drawing.Point(107, 28);
             this.textBoxSymbol.Name = "textBoxSymbol";
             this.textBoxSymbol.Size = new System.Drawing.Size(226, 22);
-            this.textBoxSymbol.TabIndex = 2;
+            this.textBoxSymbol.TabIndex = 0;
             this.textBoxSymbol.TextChanged += new System.EventHandler(this.textBoxSymbol_TextChanged);
             this.textBoxSymbol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSymbol_KeyPress);
             // 
@@ -69,7 +69,7 @@
             this.textBoxName.Location = new System.Drawing.Point(107, 67);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(226, 22);
-            this.textBoxName.TabIndex = 3;
+            this.textBoxName.TabIndex = 1;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
             // buttonOK
@@ -78,7 +78,7 @@
             this.buttonOK.Location = new System.Drawing.Point(177, 119);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 4;
+            this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -89,7 +89,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(258, 119);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 5;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 

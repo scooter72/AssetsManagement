@@ -48,13 +48,13 @@ namespace AssetsManagementForms
         private void InputTextChanged()
         {
             buttonOK.Enabled = IsNameValid && IsSymbolValid;
-            SetErrorTest();
+            SetErrorText();
         }
 
 
         private bool IsNameValid 
         { 
-            get => textBoxSymbol.Text.Length > 0 && !(IsNameInUse); 
+            get => textBoxName.Text.Length > 0 && !(IsNameInUse); 
         }
 
         private bool IsNameInUse
@@ -72,7 +72,7 @@ namespace AssetsManagementForms
             get => cities.Any(c => c.Symbol.ToString().Equals(textBoxSymbol.Text));
         }
 
-        private void SetErrorTest()
+        private void SetErrorText()
         {
             labelError.Text = string.Empty;
             if (IsNameInUse || IsSymbolInUse)

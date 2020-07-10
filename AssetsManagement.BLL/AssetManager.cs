@@ -153,5 +153,10 @@ namespace AssetsManagement.BLL
         {
             return dataAccess.FindTenatById(tenantId);
         }
+
+        public RentalAgreement[] GetRentalAgreements()
+        {
+            return dataAccess.GetRentalAgreements();
+        }
     }
 }

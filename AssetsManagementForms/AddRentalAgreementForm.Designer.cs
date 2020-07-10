@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
+            this.labelError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -46,7 +47,7 @@
             this.label1.Location = new System.Drawing.Point(12, 113);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 17);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 10;
             this.label1.Text = "End:";
             // 
             // label2
@@ -55,7 +56,7 @@
             this.label2.Location = new System.Drawing.Point(12, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 17);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 6;
             this.label2.Text = "Asset:";
             // 
             // buttonOK
@@ -85,7 +86,8 @@
             this.comboBoxAssets.Location = new System.Drawing.Point(145, 22);
             this.comboBoxAssets.Name = "comboBoxAssets";
             this.comboBoxAssets.Size = new System.Drawing.Size(226, 24);
-            this.comboBoxAssets.TabIndex = 6;
+            this.comboBoxAssets.TabIndex = 0;
+            this.comboBoxAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxAssets_SelectedIndexChanged);
             // 
             // comboBoxTenants
             // 
@@ -93,7 +95,7 @@
             this.comboBoxTenants.Location = new System.Drawing.Point(145, 52);
             this.comboBoxTenants.Name = "comboBoxTenants";
             this.comboBoxTenants.Size = new System.Drawing.Size(226, 24);
-            this.comboBoxTenants.TabIndex = 8;
+            this.comboBoxTenants.TabIndex = 1;
             // 
             // label3
             // 
@@ -118,7 +120,7 @@
             this.dateTimePickerStart.Location = new System.Drawing.Point(145, 83);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(226, 22);
-            this.dateTimePickerStart.TabIndex = 10;
+            this.dateTimePickerStart.TabIndex = 2;
             this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.dateTimePickerStart_ValueChanged);
             // 
             // dateTimePickerEnd
@@ -126,8 +128,17 @@
             this.dateTimePickerEnd.Location = new System.Drawing.Point(145, 111);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(226, 22);
-            this.dateTimePickerEnd.TabIndex = 11;
+            this.dateTimePickerEnd.TabIndex = 3;
             this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.dateTimePickerEnd_ValueChanged);
+            // 
+            // labelError
+            // 
+            this.labelError.AutoSize = true;
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(13, 164);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(0, 17);
+            this.labelError.TabIndex = 11;
             // 
             // AddRentalAgreementtForm
             // 
@@ -137,6 +148,7 @@
             this.AutoSize = true;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(392, 195);
+            this.Controls.Add(this.labelError);
             this.Controls.Add(this.dateTimePickerEnd);
             this.Controls.Add(this.dateTimePickerStart);
             this.Controls.Add(this.label4);
@@ -170,5 +182,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
         private System.Windows.Forms.DateTimePicker dateTimePickerEnd;
+        private System.Windows.Forms.Label labelError;
     }
 }

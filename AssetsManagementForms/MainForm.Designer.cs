@@ -125,9 +125,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAssets.Controls.Add(this.dataGridViewAssets);
-            this.groupBoxAssets.Location = new System.Drawing.Point(140, 18);
+            this.groupBoxAssets.Location = new System.Drawing.Point(130, 18);
             this.groupBoxAssets.Name = "groupBoxAssets";
-            this.groupBoxAssets.Size = new System.Drawing.Size(820, 350);
+            this.groupBoxAssets.Size = new System.Drawing.Size(839, 350);
             this.groupBoxAssets.TabIndex = 6;
             this.groupBoxAssets.TabStop = false;
             this.groupBoxAssets.Text = "Assets";
@@ -146,7 +146,7 @@
             this.dataGridViewAssets.RowHeadersWidth = 51;
             this.dataGridViewAssets.RowTemplate.Height = 24;
             this.dataGridViewAssets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAssets.Size = new System.Drawing.Size(814, 329);
+            this.dataGridViewAssets.Size = new System.Drawing.Size(833, 329);
             this.dataGridViewAssets.TabIndex = 0;
             this.dataGridViewAssets.SelectionChanged += new System.EventHandler(this.dataGridViewAssets_SelectionChanged);
             // 
@@ -160,9 +160,9 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(140, 384);
+            this.groupBox1.Location = new System.Drawing.Point(130, 384);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(820, 100);
+            this.groupBox1.Size = new System.Drawing.Size(839, 100);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rental Agreement";

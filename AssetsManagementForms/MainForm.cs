@@ -42,7 +42,7 @@ namespace AssetsManagementForms
 
         private void buttonAddOwner_Click(object sender, EventArgs e)
         {
-            AddOwnerForm form = new AddOwnerForm();
+            AddOwnerForm form = new AddOwnerForm(assetManager.GetOwners());
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -54,7 +54,7 @@ namespace AssetsManagementForms
 
         private void buttonAddTenant_Click(object sender, EventArgs e)
         {
-            AddTenantForm form = new AddTenantForm();
+            AddTenantForm form = new AddTenantForm(assetManager.GetTenats());
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -72,7 +72,7 @@ namespace AssetsManagementForms
 
         private void buttonAddAsset_Click(object sender, EventArgs e)
         {
-            AddAssetForm form = new AddAssetForm(assetManager.GetCities(), assetManager.GetOwners());
+            AddAssetForm form = new AddAssetForm(assetManager.GetCities(), assetManager.GetOwners(), assetManager.GetAssets());
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 Asset asset = form.Asset;
@@ -112,7 +112,12 @@ namespace AssetsManagementForms
 
         private void buttonAddRentalAgreement_Click(object sender, EventArgs e)
         {
-            AddRentalAgreementtForm form = new AddRentalAgreementtForm(assetManager.GetAssets(), assetManager.GetTenats());
+            AddRentalAgreementtForm form = new AddRentalAgreementtForm(
+                assetManager.GetAssets(),
+                assetManager.GetTenats(),
+                assetManager.GetRentalAgreements()
+            ); ;
+
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 RentalAgreement rentalAgreement = form.RentalAgreement;

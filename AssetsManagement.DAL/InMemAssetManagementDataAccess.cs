@@ -105,7 +105,7 @@ namespace AssetsManagement.DAL
             return tenants.Values.ToArray();
         }
 
-        public RentalAgreement[] GetRentalAgreement()
+        public RentalAgreement[] GetRentalAgreements()
         {
             return rentalAgreements.Values.ToArray();
         }

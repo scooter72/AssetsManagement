@@ -13,9 +13,13 @@ namespace AssetsManagementForms
 {
     public partial class AddOwnerForm : Form
     {
-        public AddOwnerForm()
+        private Owner[] owners;
+        private const string IdInUse = "Id in use";
+
+        public AddOwnerForm(Owner[] owners)
         {
             InitializeComponent();
+            this.owners = owners;
         }
 
         internal Owner AssetOwner
@@ -34,12 +38,44 @@ namespace AssetsManagementForms
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
         }
 
         private void textBoxId_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxId.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
+        }
+
+        private void InputTextChanged()
+        {
+            buttonOK.Enabled = IsNameValid && IsIdlValid;
+            SetErrorText();
+        }
+
+
+        private bool IsNameValid
+        {
+            get => textBoxName.Text.Length > 0;
+        }
+
+
+        private bool IsIdlValid
+        {
+            get => textBoxId.Text.Length > 0 && !(IsIdInUse);
+        }
+
+        private bool IsIdInUse
+        {
+            get => owners.Any(c => c.Id.ToString().Equals(textBoxId.Text));
+        }
+
+        private void SetErrorText()
+        {
+            labelError.Text = string.Empty;
+            if (IsIdInUse)
+            {
+                labelError.Text = IdInUse;
+            }
         }
 
         private void textBoxSymbol_KeyPress(object sender, KeyPressEventArgs e)
