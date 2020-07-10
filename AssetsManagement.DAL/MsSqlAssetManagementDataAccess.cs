@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Net;
+using System.Threading;
 using AssetsManagement.Model;
 
 namespace AssetsManagement.DAL
@@ -18,6 +19,18 @@ namespace AssetsManagement.DAL
             if (string.IsNullOrEmpty(ConnectionString)) 
             {
                 throw new Exception("Database sonnection string is not defined");
+            }
+
+            using (var conn = new SqlConnection(ConnectionString)) 
+            {
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error openning connection to database {ex.Message}", ex);
+                }
             }
         }
 
