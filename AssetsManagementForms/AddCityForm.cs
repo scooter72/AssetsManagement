@@ -13,8 +13,13 @@ namespace AssetsManagementForms
 {
     public partial class AddCityForm : Form
     {
-        public AddCityForm()
+        private City[] cities;
+        private const string NameInUse = "Name in use";
+        private const string SymbolInUse = "Symbol in use";
+
+        public AddCityForm(City[] cities)
         {
+            this.cities = cities == null ? new City[0] : cities;
             InitializeComponent();
         }
 
@@ -33,13 +38,50 @@ namespace AssetsManagementForms
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxSymbol.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
         }
-
         private void textBoxSymbol_TextChanged(object sender, EventArgs e)
         {
-            buttonOK.Enabled = textBoxSymbol.Text.Length > 0 && textBoxName.Text.Length > 0;
+            InputTextChanged();
         }
+
+        private void InputTextChanged()
+        {
+            buttonOK.Enabled = IsNameValid && IsSymbolValid;
+            SetErrorTest();
+        }
+
+
+        private bool IsNameValid 
+        { 
+            get => textBoxSymbol.Text.Length > 0 && !(IsNameInUse); 
+        }
+
+        private bool IsNameInUse
+        {
+            get => cities.Any(c => c.Name.Equals(textBoxName.Text));
+        }
+
+        private bool IsSymbolValid
+        {
+            get => textBoxSymbol.Text.Length > 0 && !(IsSymbolInUse);
+        }
+
+        private bool IsSymbolInUse
+        {
+            get => cities.Any(c => c.Symbol.ToString().Equals(textBoxSymbol.Text));
+        }
+
+        private void SetErrorTest()
+        {
+            labelError.Text = string.Empty;
+            if (IsNameInUse || IsSymbolInUse)
+            {
+                labelError.Text = IsNameInUse ? NameInUse : SymbolInUse;
+            }
+        }
+
+
 
         private void textBoxSymbol_KeyPress(object sender, KeyPressEventArgs e)
         {

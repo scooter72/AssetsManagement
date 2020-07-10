@@ -30,7 +30,7 @@ namespace AssetsManagementForms
 
         private void buttonAddCity_Click(object sender, EventArgs e)
         {
-            AddCityForm form = new AddCityForm();
+            AddCityForm form = new AddCityForm(assetManager.GetCities());
             
             if (form.ShowDialog(this) == DialogResult.OK)
             {
