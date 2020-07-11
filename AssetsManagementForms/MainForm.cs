@@ -118,12 +118,12 @@ namespace AssetsManagementForms
             ExecuteAction(new AddRentalAgreementAction());
         }
 
-        private Entity ExecuteAction(ActionBase action)
+        private Entity ExecuteAction(ActionBase action, Entity entity = null)
         {
-            var context = new ActionContext { AssetManager = assetManager, WindowOwner = this };
-            var entity = action.Execute(context);
+            var context = new ActionContext { AssetManager = assetManager, WindowOwner = this, Entity = entity };
+            var returnEntity = action.Execute(context);
             SetStatus(context.Status);
-            return entity;
+            return returnEntity;
         }
 
         private void SetStatus(string message)
@@ -184,21 +184,12 @@ namespace AssetsManagementForms
         private void DeleteAsset()
         {
             AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
-            RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
 
-            if (rentalAgreement != null)
+            if (ExecuteAction(new DeleteAssetAction(), new Asset { Id = row.Id }) != null)
             {
-                if (MessageBox.Show(this,
-                    "Asset is rented, are you sure you want to delete the asset?",
-                    "Asset is Rented",
-                    MessageBoxButtons.YesNo, 
-                    MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    assetManager.DeleteAsset(row.Id);
-                    dataGridViewAssets.DataSource = null;
-                    BuildAssetGridDataSource(assetManager.GetAssets());
-                    dataGridViewAssets.DataSource = assetGridDataSource;
-                }
+                dataGridViewAssets.DataSource = null;
+                BuildAssetGridDataSource(assetManager.GetAssets());
+                dataGridViewAssets.DataSource = assetGridDataSource;
             }
         }
 

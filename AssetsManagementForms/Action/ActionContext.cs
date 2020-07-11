@@ -1,4 +1,5 @@
 ﻿using AssetsManagement.BLL;
+using AssetsManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace AssetsManagementForms.Action
         internal IAssetManager AssetManager { get; set; }
 
         internal string Status { get; set; }
+
+        public Entity Entity { get; set; }
     }
 }
