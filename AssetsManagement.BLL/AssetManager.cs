@@ -163,5 +163,10 @@ namespace AssetsManagement.BLL
         {
             dataAccess.DeleteAsset(id);
         }
+
+        public void DeleteCity(int symbol)
+        {
+            dataAccess.DeleteCity(symbol);
+        }
     }
 }

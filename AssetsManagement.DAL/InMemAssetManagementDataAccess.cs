@@ -125,5 +125,10 @@ namespace AssetsManagement.DAL
             }
             assets.Remove(id);
         }
+
+        public void DeleteCity(int symbol)
+        {
+            cities.Remove(symbol);
+        }
     }
 }

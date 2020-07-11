@@ -157,6 +157,20 @@ namespace AssetsManagement.DAL
             }
         }
 
+        public void DeleteCity(int symbol)
+        {
+            String query = "DELETE City WHERE Symbol = @symbol";
+            
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@symbol", symbol);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Asset FindAssetByAddress(Address address)
         {
             throw new NotImplementedException();

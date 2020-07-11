@@ -22,5 +22,6 @@ namespace AssetsManagement.BLL
         Tenant FindTenantById(int tenant);
         RentalAgreement[] GetRentalAgreements();
         void DeleteAsset(int id);
+        void DeleteCity(int symbol);
     }
 }

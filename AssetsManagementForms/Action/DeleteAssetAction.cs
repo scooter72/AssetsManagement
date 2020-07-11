@@ -21,7 +21,7 @@ namespace AssetsManagementForms.Action
                 if (rentalAgreement != null)
                 {
                     if (MessageBox.Show(context.WindowOwner,
-                        "Asset is rented, are you sure you want to delete the asset?",
+                        "Asset is rented, are you sure you want to delete the asset entry?",
                         "Asset is Rented",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -31,6 +31,16 @@ namespace AssetsManagementForms.Action
                     }
 
                 }
+                else if (MessageBox.Show(context.WindowOwner,
+                       "Are you sure you want to delete the asset entry?",
+                       "Confirm Deletion",
+                       MessageBoxButtons.OKCancel,
+                       MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    context.AssetManager.DeleteAsset(asset.Id);
+                    return asset;
+                }
+
             }
 
             return null;

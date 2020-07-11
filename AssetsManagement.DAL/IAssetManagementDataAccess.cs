@@ -21,5 +21,6 @@ namespace AssetsManagement.DAL
         RentalAgreement FindRentalAgreementtByAssetId(int id);
         Asset[] GetAssets();
         void DeleteAsset(int id);
+        void DeleteCity(int symbol);
     }
 }

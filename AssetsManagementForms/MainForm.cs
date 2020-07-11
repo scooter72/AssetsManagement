@@ -11,7 +11,7 @@ namespace AssetsManagementForms
     {
         private readonly IAssetManager assetManager;
         private readonly List<AssetRow> assetGridDataSource = new List<AssetRow>();
-        private enum View { Assets }
+        private enum View { Assets, Cities }
         private View currentView = View.Assets;
 
         public MainForm(IAssetManager assetManager)
@@ -20,6 +20,7 @@ namespace AssetsManagementForms
             InitializeComponent();
             BuildAssetGridDataSource(assetManager.GetAssets());
             dataGridViewAssets.DataSource = assetGridDataSource;
+            toolStripButtonNew.Enabled = assetGridDataSource.Count > 0;
         }
 
         private void buttonAddCity_Click(object sender, EventArgs e)
@@ -34,7 +35,13 @@ namespace AssetsManagementForms
 
         private void AddNewCity()
         {
-            ExecuteAction(new AddCityAction());
+            var entity = ExecuteAction(new AddCityAction());
+
+            if (entity != null && (View)tabControl1.SelectedIndex == View.Cities)
+            {
+                dataGridViewCities.DataSource = null;
+                dataGridViewCities.DataSource = assetManager.GetCities();
+            }
         }
 
         private void ownerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,7 +87,20 @@ namespace AssetsManagementForms
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            AddNewAsset();
+            AddNewEntity();
+        }
+
+        private void AddNewEntity()
+        {
+            switch ((View)tabControl1.SelectedIndex)
+            {
+                case View.Assets:
+                    AddNewAsset();
+                    break;
+                case View.Cities:
+                    AddNewCity();
+                    break;
+            }
         }
 
         private void AddNewAsset()
@@ -137,38 +157,31 @@ namespace AssetsManagementForms
 
             if (dataGridViewAssets.SelectedRows.Count > 0)
             {
-                labelRentalAgreementTenant.Text = string.Empty;
-                labelStartRentalAgreemnt.Text = string.Empty;
-                labelRentalAgreemntEnd.Text = string.Empty;
+                UpdateRentalAgreementPane();
+            }
+        }
 
-                AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
-                RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
+        private void UpdateRentalAgreementPane()
+        {
+            labelRentalAgreementTenant.Text = string.Empty;
+            labelStartRentalAgreemnt.Text = string.Empty;
+            labelRentalAgreemntEnd.Text = string.Empty;
 
-                if (rentalAgreement != null)
-                {
-                    Tenant tenant = assetManager.FindTenantById(rentalAgreement.Tenant);
-                    labelRentalAgreementTenant.Text = tenant.Name;
-                    labelStartRentalAgreemnt.Text = rentalAgreement.Start.ToString("dd/MM/yyyy");
-                    labelRentalAgreemntEnd.Text = rentalAgreement.End.ToString("dd/MM/yyyy");
-                }
+            AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
+            RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
+
+            if (rentalAgreement != null)
+            {
+                Tenant tenant = assetManager.FindTenantById(rentalAgreement.Tenant);
+                labelRentalAgreementTenant.Text = tenant.Name;
+                labelStartRentalAgreemnt.Text = rentalAgreement.Start.ToString("dd/MM/yyyy");
+                labelRentalAgreemntEnd.Text = rentalAgreement.End.ToString("dd/MM/yyyy");
             }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
- 
-
-
-        class AssetRow
-        {
-            public int Id { get; set; }
-            public String Owner { get; set; }
-            public String City { get; set; }
-            public String Street { get; set; }
-            public int HouseNumber { get; set; }
         }
 
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
@@ -178,6 +191,20 @@ namespace AssetsManagementForms
                 case View.Assets:
                     DeleteAsset();
                     break;
+                case View.Cities:
+                    DeleteCity();
+                    break;
+            }
+        }
+
+        private void DeleteCity()
+        {
+            var entity = ExecuteAction(new DeleteCityAction(), (Entity)dataGridViewCities.SelectedRows[0].DataBoundItem);
+
+            if (entity != null)
+            {
+                dataGridViewCities.DataSource = null;
+                dataGridViewCities.DataSource = assetManager.GetCities();
             }
         }
 
@@ -187,12 +214,25 @@ namespace AssetsManagementForms
 
             if (ExecuteAction(new DeleteAssetAction(), new Asset { Id = row.Id }) != null)
             {
-                dataGridViewAssets.DataSource = null;
-                BuildAssetGridDataSource(assetManager.GetAssets());
-                dataGridViewAssets.DataSource = assetGridDataSource;
+                SetAssetsGridDataSource();
             }
         }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentView = (View)tabControl1.SelectedIndex;
+
+            switch (currentView) 
+            {
+                case View.Assets:
+                    BuildAssetGridDataSource(assetManager.GetAssets());
+                    break;
+                case View.Cities:
+                    dataGridViewCities.DataSource = null;
+                    dataGridViewCities.DataSource = assetManager.GetCities();
+                    break;
+            }
+        }
 
         private void BuildAssetGridDataSource(Asset[] assets)
         {
@@ -211,6 +251,22 @@ namespace AssetsManagementForms
                     }
                 );
             }
+        }
+
+        private void SetAssetsGridDataSource()
+        {
+            dataGridViewAssets.DataSource = null;
+            BuildAssetGridDataSource(assetManager.GetAssets());
+            dataGridViewAssets.DataSource = assetGridDataSource;
+        }
+
+        class AssetRow
+        {
+            public int Id { get; set; }
+            public String Owner { get; set; }
+            public String City { get; set; }
+            public String Street { get; set; }
+            public int HouseNumber { get; set; }
         }
 
     }

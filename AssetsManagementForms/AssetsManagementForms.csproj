@@ -53,6 +53,7 @@
     <Compile Include="Action\AddTenantAction.cs" />
     <Compile Include="Action\AddOwnerAction.cs" />
     <Compile Include="Action\AddCityAction.cs" />
+    <Compile Include="Action\DeleteCityAction.cs" />
     <Compile Include="Action\DeleteAssetAction.cs" />
     <Compile Include="AddRentalAgreementForm.cs">
       <SubType>Form</SubType>
