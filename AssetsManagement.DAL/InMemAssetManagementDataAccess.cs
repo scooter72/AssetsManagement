@@ -114,5 +114,16 @@ namespace AssetsManagement.DAL
         {
             return assets.Values.ToArray();
         }
+
+        public void DeleteAsset(int id)
+        {
+            var rentalAgreemnt = rentalAgreements.Values.FirstOrDefault(i => i.AssetId == id);
+            
+            if (rentalAgreemnt != null)
+            { 
+                rentalAgreements.Remove(rentalAgreemnt.Id); 
+            }
+            assets.Remove(id);
+        }
     }
 }

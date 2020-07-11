@@ -113,6 +113,7 @@ GO
 
 ALTER TABLE [dbo].[RentalAgreement]  WITH CHECK ADD  CONSTRAINT [FK_RentalAgreement_Asset] FOREIGN KEY([Asset])
 REFERENCES [dbo].[Asset] ([Id])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[RentalAgreement] CHECK CONSTRAINT [FK_RentalAgreement_Asset]

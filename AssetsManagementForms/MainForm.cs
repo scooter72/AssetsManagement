@@ -1,14 +1,8 @@
 ﻿using AssetsManagement.BLL;
 using AssetsManagement.Model;
+using AssetsManagementForms.Action;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AssetsManagementForms
@@ -17,66 +11,85 @@ namespace AssetsManagementForms
     {
         private readonly IAssetManager assetManager;
         private readonly List<AssetRow> assetGridDataSource = new List<AssetRow>();
+        private enum View { Assets }
+        private View currentView = View.Assets;
 
         public MainForm(IAssetManager assetManager)
         {
             this.assetManager = assetManager;
             InitializeComponent();
-            SetAssetGridDataSource(assetManager.GetAssets());
+            BuildAssetGridDataSource(assetManager.GetAssets());
             dataGridViewAssets.DataSource = assetGridDataSource;
         }
 
-
-
         private void buttonAddCity_Click(object sender, EventArgs e)
         {
-            AddCityForm form = new AddCityForm(assetManager.GetCities());
-            
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                City city = form.City;
-                assetManager.AddCity(city);
-                SetStatus($"City added to repositoy");
-            }
+            AddNewCity();
+        }
+
+        private void cityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNewCity();
+        }
+
+        private void AddNewCity()
+        {
+            ExecuteAction(new AddCityAction());
+        }
+
+        private void ownerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNewOwner();
         }
 
         private void buttonAddOwner_Click(object sender, EventArgs e)
         {
-            AddOwnerForm form = new AddOwnerForm(assetManager.GetOwners());
+            AddNewOwner();
+        }
 
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                Owner owner = form.AssetOwner;
-                assetManager.AddOwner(owner);
-               SetStatus($"Owner added to repositoy");
-            }
+        private void AddNewOwner()
+        {
+            ExecuteAction(new AddOwnerAction());
         }
 
         private void buttonAddTenant_Click(object sender, EventArgs e)
         {
-            AddTenantForm form = new AddTenantForm(assetManager.GetTenats());
-
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                Tenant tenant = form.Tenant;
-                assetManager.AddTenant(tenant);
-               SetStatus($"Tenant added to repositoy");
-            }
+            AddNewTenant();
         }
 
-
-        private void SetStatus(string message)
+        private void tenantToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            labelStatus.Text = message;
+            AddNewTenant();
+        }
+
+        private void AddNewTenant()
+        {
+            ExecuteAction(new AddOwnerAction());
         }
 
         private void buttonAddAsset_Click(object sender, EventArgs e)
         {
-            AddAssetForm form = new AddAssetForm(assetManager.GetCities(), assetManager.GetOwners(), assetManager.GetAssets());
-            if (form.ShowDialog(this) == DialogResult.OK)
+            AddNewAsset();
+        }
+
+
+        private void assetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNewAsset();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            AddNewAsset();
+        }
+
+        private void AddNewAsset()
+        {
+            var entity = ExecuteAction(new AddAssetAction());
+
+            if (entity != null)
             {
-                Asset asset = form.Asset;
-                asset.Id = assetManager.AddAsset(asset);
+                Asset asset = entity as Asset;
                 assetGridDataSource.Add(new AssetRow
                 {
                     Id = asset.Id,
@@ -87,56 +100,41 @@ namespace AssetsManagementForms
                 });
                 dataGridViewAssets.DataSource = null;
                 dataGridViewAssets.DataSource = assetGridDataSource;
-                SetStatus($"Asset added to repositoy");
-            }
-        }
-
-        private void SetAssetGridDataSource(Asset[] assets)
-        {
-            assetGridDataSource.Clear();
-
-            foreach (var asset in assets)
-            {
-                assetGridDataSource.Add(
-                    new AssetRow 
-                    { 
-                        Id = asset.Id, 
-                        City = asset.Address.City.Name, 
-                        Owner = asset.Owner.Name, 
-                        Street = asset.Address.Street, 
-                        HouseNumber = asset.Address.HouseNumber 
-                    }
-                );
             }
         }
 
         private void buttonAddRentalAgreement_Click(object sender, EventArgs e)
         {
-            AddRentalAgreementtForm form = new AddRentalAgreementtForm(
-                assetManager.GetAssets(),
-                assetManager.GetTenats(),
-                assetManager.GetRentalAgreements()
-            ); ;
-
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                RentalAgreement rentalAgreement = form.RentalAgreement;
-                assetManager.AddRentalAgreement(rentalAgreement);
-                SetStatus($"Rental agreement added to repositoy");
-            }
+            AddNewRentalAgreement();
         }
 
-        class AssetRow 
+        private void rentalAgreementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            public int Id { get; set; }
-            public String Owner { get; set; }
-            public String City { get; set; }
-            public String Street { get; set; }
-            public int HouseNumber { get; set; }
+            AddNewRentalAgreement();
+        }
+
+        private void AddNewRentalAgreement()
+        {
+            ExecuteAction(new AddRentalAgreementAction());
+        }
+
+        private Entity ExecuteAction(ActionBase action)
+        {
+            var context = new ActionContext { AssetManager = assetManager, WindowOwner = this };
+            var entity = action.Execute(context);
+            SetStatus(context.Status);
+            return entity;
+        }
+
+        private void SetStatus(string message)
+        {
+            toolStripStatusLabel1.Text = message;
         }
 
         private void dataGridViewAssets_SelectionChanged(object sender, EventArgs e)
         {
+            toolStripButtonDelete.Enabled = dataGridViewAssets.SelectedRows.Count > 0;
+
             if (dataGridViewAssets.SelectedRows.Count > 0)
             {
                 labelRentalAgreementTenant.Text = string.Empty;
@@ -145,6 +143,7 @@ namespace AssetsManagementForms
 
                 AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
                 RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
+
                 if (rentalAgreement != null)
                 {
                     Tenant tenant = assetManager.FindTenantById(rentalAgreement.Tenant);
@@ -154,5 +153,74 @@ namespace AssetsManagementForms
                 }
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+ 
+
+
+        class AssetRow
+        {
+            public int Id { get; set; }
+            public String Owner { get; set; }
+            public String City { get; set; }
+            public String Street { get; set; }
+            public int HouseNumber { get; set; }
+        }
+
+        private void toolStripButtonDelete_Click(object sender, EventArgs e)
+        {
+            switch (currentView) 
+            {
+                case View.Assets:
+                    DeleteAsset();
+                    break;
+            }
+        }
+
+        private void DeleteAsset()
+        {
+            AssetRow row = assetGridDataSource[dataGridViewAssets.SelectedRows[0].Index];
+            RentalAgreement rentalAgreement = assetManager.FindRentalAgreement(row.Id);
+
+            if (rentalAgreement != null)
+            {
+                if (MessageBox.Show(this,
+                    "Asset is rented, are you sure you want to delete the asset?",
+                    "Asset is Rented",
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    assetManager.DeleteAsset(row.Id);
+                    dataGridViewAssets.DataSource = null;
+                    BuildAssetGridDataSource(assetManager.GetAssets());
+                    dataGridViewAssets.DataSource = assetGridDataSource;
+                }
+            }
+        }
+
+
+        private void BuildAssetGridDataSource(Asset[] assets)
+        {
+            assetGridDataSource.Clear();
+
+            foreach (var asset in assets)
+            {
+                assetGridDataSource.Add(
+                    new AssetRow
+                    {
+                        Id = asset.Id,
+                        City = asset.Address.City.Name,
+                        Owner = asset.Owner.Name,
+                        Street = asset.Address.Street,
+                        HouseNumber = asset.Address.HouseNumber
+                    }
+                );
+            }
+        }
+
     }
 }

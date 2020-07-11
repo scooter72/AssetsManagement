@@ -1,6 +1,6 @@
 ﻿namespace AssetsManagement.Model
 {
-    public class Asset
+    public class Asset : Entity
     {
         public Owner Owner { get; set; }
         public Address Address { get; set; }

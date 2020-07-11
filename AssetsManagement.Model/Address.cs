@@ -3,7 +3,7 @@
 
 namespace AssetsManagement.Model
 {
-    public class Address : IComparable<Address>
+    public class Address : Entity, IComparable<Address>
     {
         public string Street { get; set; }
         public City City { get; set; }

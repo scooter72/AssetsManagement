@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonAddCity = new System.Windows.Forms.Button();
             this.buttonAddOwner = new System.Windows.Forms.Button();
             this.buttonAddTenant = new System.Windows.Forms.Button();
             this.buttonAddRentalAgreement = new System.Windows.Forms.Button();
-            this.buttonAddAsset = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAssets = new System.Windows.Forms.GroupBox();
             this.dataGridViewAssets = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -44,15 +42,31 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ownerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tenantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rentalAgreementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
             this.groupBoxAssets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssets)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.statusStrip2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAddCity
             // 
-            this.buttonAddCity.Location = new System.Drawing.Point(12, 18);
+            this.buttonAddCity.Location = new System.Drawing.Point(12, 94);
             this.buttonAddCity.Name = "buttonAddCity";
             this.buttonAddCity.Size = new System.Drawing.Size(100, 50);
             this.buttonAddCity.TabIndex = 0;
@@ -62,7 +76,7 @@
             // 
             // buttonAddOwner
             // 
-            this.buttonAddOwner.Location = new System.Drawing.Point(12, 74);
+            this.buttonAddOwner.Location = new System.Drawing.Point(12, 150);
             this.buttonAddOwner.Name = "buttonAddOwner";
             this.buttonAddOwner.Size = new System.Drawing.Size(100, 50);
             this.buttonAddOwner.TabIndex = 1;
@@ -72,7 +86,7 @@
             // 
             // buttonAddTenant
             // 
-            this.buttonAddTenant.Location = new System.Drawing.Point(12, 130);
+            this.buttonAddTenant.Location = new System.Drawing.Point(12, 206);
             this.buttonAddTenant.Name = "buttonAddTenant";
             this.buttonAddTenant.Size = new System.Drawing.Size(100, 50);
             this.buttonAddTenant.TabIndex = 2;
@@ -82,7 +96,7 @@
             // 
             // buttonAddRentalAgreement
             // 
-            this.buttonAddRentalAgreement.Location = new System.Drawing.Point(12, 242);
+            this.buttonAddRentalAgreement.Location = new System.Drawing.Point(12, 318);
             this.buttonAddRentalAgreement.Name = "buttonAddRentalAgreement";
             this.buttonAddRentalAgreement.Size = new System.Drawing.Size(100, 50);
             this.buttonAddRentalAgreement.TabIndex = 3;
@@ -90,44 +104,15 @@
             this.buttonAddRentalAgreement.UseVisualStyleBackColor = true;
             this.buttonAddRentalAgreement.Click += new System.EventHandler(this.buttonAddRentalAgreement_Click);
             // 
-            // buttonAddAsset
-            // 
-            this.buttonAddAsset.Location = new System.Drawing.Point(12, 186);
-            this.buttonAddAsset.Name = "buttonAddAsset";
-            this.buttonAddAsset.Size = new System.Drawing.Size(100, 50);
-            this.buttonAddAsset.TabIndex = 4;
-            this.buttonAddAsset.Text = "Add Asset";
-            this.buttonAddAsset.UseVisualStyleBackColor = true;
-            this.buttonAddAsset.Click += new System.EventHandler(this.buttonAddAsset_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.labelStatus);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 512);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(981, 25);
-            this.panel1.TabIndex = 5;
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelStatus.Location = new System.Drawing.Point(0, 0);
-            this.labelStatus.Margin = new System.Windows.Forms.Padding(30, 0, 3, 0);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(0, 17);
-            this.labelStatus.TabIndex = 0;
-            // 
             // groupBoxAssets
             // 
             this.groupBoxAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAssets.Controls.Add(this.dataGridViewAssets);
-            this.groupBoxAssets.Location = new System.Drawing.Point(130, 18);
+            this.groupBoxAssets.Location = new System.Drawing.Point(130, 94);
             this.groupBoxAssets.Name = "groupBoxAssets";
-            this.groupBoxAssets.Size = new System.Drawing.Size(839, 350);
+            this.groupBoxAssets.Size = new System.Drawing.Size(839, 377);
             this.groupBoxAssets.TabIndex = 6;
             this.groupBoxAssets.TabStop = false;
             this.groupBoxAssets.Text = "Assets";
@@ -146,7 +131,7 @@
             this.dataGridViewAssets.RowHeadersWidth = 51;
             this.dataGridViewAssets.RowTemplate.Height = 24;
             this.dataGridViewAssets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAssets.Size = new System.Drawing.Size(833, 329);
+            this.dataGridViewAssets.Size = new System.Drawing.Size(833, 356);
             this.dataGridViewAssets.TabIndex = 0;
             this.dataGridViewAssets.SelectionChanged += new System.EventHandler(this.dataGridViewAssets_SelectionChanged);
             // 
@@ -160,7 +145,7 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(130, 384);
+            this.groupBox1.Location = new System.Drawing.Point(130, 487);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(839, 100);
             this.groupBox1.TabIndex = 7;
@@ -218,28 +203,161 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Tenant:";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(981, 28);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cityToolStripMenuItem,
+            this.ownerToolStripMenuItem,
+            this.tenantToolStripMenuItem,
+            this.assetToolStripMenuItem,
+            this.rentalAgreementToolStripMenuItem});
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // cityToolStripMenuItem
+            // 
+            this.cityToolStripMenuItem.Name = "cityToolStripMenuItem";
+            this.cityToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.cityToolStripMenuItem.Text = "City...";
+            this.cityToolStripMenuItem.Click += new System.EventHandler(this.cityToolStripMenuItem_Click);
+            // 
+            // ownerToolStripMenuItem
+            // 
+            this.ownerToolStripMenuItem.Name = "ownerToolStripMenuItem";
+            this.ownerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ownerToolStripMenuItem.Text = "Owner...";
+            this.ownerToolStripMenuItem.Click += new System.EventHandler(this.ownerToolStripMenuItem_Click);
+            // 
+            // tenantToolStripMenuItem
+            // 
+            this.tenantToolStripMenuItem.Name = "tenantToolStripMenuItem";
+            this.tenantToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.tenantToolStripMenuItem.Text = "Tenant...";
+            this.tenantToolStripMenuItem.Click += new System.EventHandler(this.tenantToolStripMenuItem_Click);
+            // 
+            // assetToolStripMenuItem
+            // 
+            this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
+            this.assetToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.assetToolStripMenuItem.Text = "Asset...";
+            this.assetToolStripMenuItem.Click += new System.EventHandler(this.assetToolStripMenuItem_Click);
+            // 
+            // rentalAgreementToolStripMenuItem
+            // 
+            this.rentalAgreementToolStripMenuItem.Name = "rentalAgreementToolStripMenuItem";
+            this.rentalAgreementToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.rentalAgreementToolStripMenuItem.Text = "Rental Agreement....";
+            this.rentalAgreementToolStripMenuItem.Click += new System.EventHandler(this.rentalAgreementToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 618);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(981, 22);
+            this.statusStrip2.TabIndex = 11;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonNew,
+            this.toolStripButtonDelete});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(981, 27);
+            this.toolStrip1.TabIndex = 12;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonNew
+            // 
+            this.toolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonNew.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNew.Image")));
+            this.toolStripButtonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNew.Name = "toolStripButtonNew";
+            this.toolStripButtonNew.Size = new System.Drawing.Size(43, 24);
+            this.toolStripButtonNew.Text = "New";
+            this.toolStripButtonNew.ToolTipText = "New entity...";
+            this.toolStripButtonNew.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButtonDelete
+            // 
+            this.toolStripButtonDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonDelete.Enabled = false;
+            this.toolStripButtonDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDelete.Image")));
+            this.toolStripButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDelete.Name = "toolStripButtonDelete";
+            this.toolStripButtonDelete.Size = new System.Drawing.Size(57, 24);
+            this.toolStripButtonDelete.Text = "Delete";
+            this.toolStripButtonDelete.ToolTipText = "Delete entity...";
+            this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripButtonDelete_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(981, 537);
+            this.ClientSize = new System.Drawing.Size(981, 640);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxAssets);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonAddAsset);
             this.Controls.Add(this.buttonAddRentalAgreement);
             this.Controls.Add(this.buttonAddTenant);
             this.Controls.Add(this.buttonAddOwner);
             this.Controls.Add(this.buttonAddCity);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Assets Management";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBoxAssets.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssets)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -249,9 +367,6 @@
         private System.Windows.Forms.Button buttonAddOwner;
         private System.Windows.Forms.Button buttonAddTenant;
         private System.Windows.Forms.Button buttonAddRentalAgreement;
-        private System.Windows.Forms.Button buttonAddAsset;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.GroupBox groupBoxAssets;
         private System.Windows.Forms.DataGridView dataGridViewAssets;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -261,6 +376,20 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ownerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tenantToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem assetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rentalAgreementToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNew;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDelete;
     }
 }
 

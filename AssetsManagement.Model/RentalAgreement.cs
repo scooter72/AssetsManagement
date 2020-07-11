@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AssetsManagement.Model
 {
-    public class RentalAgreement
+    public class RentalAgreement : Entity
     {
         public RentalAgreement()
         {

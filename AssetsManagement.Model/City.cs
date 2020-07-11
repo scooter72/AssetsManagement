@@ -1,6 +1,6 @@
 ﻿namespace AssetsManagement.Model
 {
-    public class City
+    public class City : Entity
     {
         public int Symbol { get; set; }
         public string Name { get; set; }

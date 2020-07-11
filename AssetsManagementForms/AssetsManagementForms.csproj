@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\ActionBase.cs" />
+    <Compile Include="Action\ActionContext.cs" />
+    <Compile Include="Action\AddAssetAction.cs" />
+    <Compile Include="Action\AddRentalAgreementAction.cs" />
+    <Compile Include="Action\AddTenantAction.cs" />
+    <Compile Include="Action\AddOwnerAction.cs" />
+    <Compile Include="Action\AddCityAction.cs" />
     <Compile Include="AddRentalAgreementForm.cs">
       <SubType>Form</SubType>
     </Compile>

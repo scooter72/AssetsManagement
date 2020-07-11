@@ -143,6 +143,20 @@ namespace AssetsManagement.DAL
             return tenant.Id;
         }
 
+        public void DeleteAsset(int id)
+        {
+            String query = "DELETE Asset WHERE Id = @id";
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Asset FindAssetByAddress(Address address)
         {
             throw new NotImplementedException();

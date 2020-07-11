@@ -20,5 +20,6 @@ namespace AssetsManagement.DAL
         Tenant FindTenatById(int id);
         RentalAgreement FindRentalAgreementtByAssetId(int id);
         Asset[] GetAssets();
+        void DeleteAsset(int id);
     }
 }

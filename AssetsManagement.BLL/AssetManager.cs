@@ -158,5 +158,10 @@ namespace AssetsManagement.BLL
         {
             return dataAccess.GetRentalAgreements();
         }
+
+        public void DeleteAsset(int id)
+        {
+            dataAccess.DeleteAsset(id);
+        }
     }
 }
