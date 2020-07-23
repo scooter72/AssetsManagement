@@ -30,7 +30,7 @@ namespace AssetsManagementForms.Action
 
                 }
                 else if (MessageBox.Show(context.WindowOwner,
-                       "Are you sure you want to delete the city entry?",
+                       $"Are you sure you want to delete '{city.Name}'?",
                        "Confirm Deletion",
                        MessageBoxButtons.OKCancel,
                        MessageBoxIcon.Exclamation) == DialogResult.OK)
