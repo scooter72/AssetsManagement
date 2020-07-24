@@ -14,7 +14,7 @@ namespace AssetsManagement.BLL
         City[] GetCities();
         
         Asset[] GetAssets();
-
+        User[] GetUsers();
         Owner[] GetOwners();
         Tenant[] GetTenats();
         void AddRentalAgreement(RentalAgreement rentalAgreement);

@@ -13,14 +13,22 @@ namespace AssetsManagementForms
         private readonly List<AssetRow> assetGridDataSource = new List<AssetRow>();
         private enum View { Assets, Cities }
         private View currentView = View.Assets;
+        User user;
 
         public MainForm(IAssetManager assetManager)
         {
             this.assetManager = assetManager;
+            user = ExecuteAction(new LoginAction()) as User;
+
+            if (user == null)
+            {
+                Application.Exit();
+            }
             InitializeComponent();
             BuildAssetGridDataSource(assetManager.GetAssets());
             dataGridViewAssets.DataSource = assetGridDataSource;
             toolStripButtonNew.Enabled = assetGridDataSource.Count > 0;
+            
         }
 
         private void buttonAddCity_Click(object sender, EventArgs e)
@@ -142,7 +150,10 @@ namespace AssetsManagementForms
         {
             var context = new ActionContext { AssetManager = assetManager, WindowOwner = this, Entity = entity };
             var returnEntity = action.Execute(context);
-            SetStatus(context.Status);
+            if (toolStripStatusLabel1 != null)
+            {
+                SetStatus(context.Status);
+            }
             return returnEntity;
         }
 

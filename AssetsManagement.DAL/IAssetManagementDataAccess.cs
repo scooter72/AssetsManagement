@@ -22,5 +22,6 @@ namespace AssetsManagement.DAL
         Asset[] GetAssets();
         void DeleteAsset(int id);
         void DeleteCity(int symbol);
+        User[] GetUsers();
     }
 }

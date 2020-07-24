@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Threading;
@@ -370,6 +371,45 @@ namespace AssetsManagement.DAL
             }
 
             return tenants.ToArray();
+        }
+
+        public User[] GetUsers()
+        {
+            List<User> users = new List<User>();
+
+            ExecuteReader("SELECT [Id], [Username], [Password], [FirstName], [LastName], [Email], [Role] FROM [User]",
+                reader =>
+                users.Add(
+                        new User
+                        {
+                            Id = reader.GetInt32(0),
+                            Username = reader.GetString(1),
+                            Password = reader.GetString(2),
+                            FirstName = reader.GetString(3),
+                            LastName = reader.GetString(4),
+                            Email = reader.GetString(5),
+                            Role = reader.GetInt32(6)
+                        }
+                    )
+                );
+            
+            return users.ToArray();
+        }
+
+        private void ExecuteReader(string query, Action<IDataReader> rowConaumer)
+        {
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = conn.CreateCommand())
+            {
+                conn.Open();
+                command.CommandText = query;
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    rowConaumer.Invoke(reader);
+                }
+            }
         }
     }
 }

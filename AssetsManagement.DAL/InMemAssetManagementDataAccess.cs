@@ -22,6 +22,7 @@ namespace AssetsManagement.DAL
         private Dictionary<int, RentalAgreement> rentalAgreements =
             new Dictionary<int, RentalAgreement>();
         private Dictionary<int, Tenant> tenants = new Dictionary<int, Tenant>();
+        private Dictionary<int, User> users = new Dictionary<int, User>();
 
 
         public int AddCity(City city)
@@ -129,6 +130,11 @@ namespace AssetsManagement.DAL
         public void DeleteCity(int symbol)
         {
             cities.Remove(symbol);
+        }
+
+        public User[] GetUsers()
+        {
+            return users.Values.ToArray();
         }
     }
 }

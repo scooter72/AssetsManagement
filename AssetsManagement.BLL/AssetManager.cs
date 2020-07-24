@@ -168,5 +168,10 @@ namespace AssetsManagement.BLL
         {
             dataAccess.DeleteCity(symbol);
         }
+
+        public User[] GetUsers()
+        {
+            return dataAccess.GetUsers();
+        }
     }
 }
