@@ -286,19 +286,17 @@ namespace AssetsManagement.DAL
         public City[] GetCities()
         {
             List<City> cities = new List<City>();
-            String query = "SELECT Symbol,Name FROM City";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    cities.Add(new City { Symbol = reader.GetInt32(0), Name = reader.GetString(1) });
-                }
-            }
+            ExecuteReader("SELECT Symbol,Name FROM City",
+              row =>
+              cities.Add(
+                  new City 
+                  { 
+                      Symbol = row.GetInt32(0), 
+                      Name = row.GetString(1) 
+                  }
+                )
+              );
 
             return cities.ToArray();
         }
@@ -306,49 +304,39 @@ namespace AssetsManagement.DAL
         public Owner[] GetOwners()
         {
             List<Owner> owners = new List<Owner>();
-            String query = "SELECT Id,Name FROM Owner";
-
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    owners.Add(new Owner { Id = reader.GetInt32(0), Name = reader.GetString(1) });
-                }
-            }
+ 
+            ExecuteReader("SELECT Id, Name FROM Owner",
+               row =>
+               owners.Add(
+                   new Owner 
+                   { 
+                       Id = row.GetInt32(0), 
+                       Name = row.GetString(1) 
+                   }
+                 )
+               );
 
             return owners.ToArray();
         }
 
+
         public RentalAgreement[] GetRentalAgreements()
         {
             List<RentalAgreement> rentalAgreements = new List<RentalAgreement>();
-            String query = "SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                SqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                    rentalAgreements.Add(
-                        new RentalAgreement
-                        {
-                            Id = reader.GetInt32(0),
-                            AssetId = reader.GetInt32(1),
-                            Tenant = reader.GetInt32(2),
-                            Start = reader.GetDateTime(3),
-                            End = reader.GetDateTime(4),
-                        }
-                    );
-                }
-            }
+            ExecuteReader("SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement",
+                row =>
+                rentalAgreements.Add(
+                       new RentalAgreement
+                       {
+                           Id = row.GetInt32(0),
+                           AssetId = row.GetInt32(1),
+                           Tenant = row.GetInt32(2),
+                           Start = row.GetDateTime(3),
+                           End = row.GetDateTime(4),
+                       }
+                    )
+                );
 
             return rentalAgreements.ToArray();
         }
@@ -356,19 +344,17 @@ namespace AssetsManagement.DAL
         public Tenant[] GetTenants()
         {
             List<Tenant> tenants = new List<Tenant>();
-            String query = "SELECT Id,Name FROM Tenant";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    tenants.Add(new Tenant { Id = reader.GetInt32(0), Name = reader.GetString(1) });
-                }
-            }
+            ExecuteReader("SELECT Id, Name FROM Tenant",
+                row =>
+                tenants.Add(
+                        new Tenant 
+                        { 
+                            Id = row.GetInt32(0), 
+                            Name = row.GetString(1) 
+                        }
+                    )
+                );
 
             return tenants.ToArray();
         }
@@ -378,17 +364,17 @@ namespace AssetsManagement.DAL
             List<User> users = new List<User>();
 
             ExecuteReader("SELECT [Id], [Username], [Password], [FirstName], [LastName], [Email], [Role] FROM [User]",
-                reader =>
+                row =>
                 users.Add(
                         new User
                         {
-                            Id = reader.GetInt32(0),
-                            Username = reader.GetString(1),
-                            Password = reader.GetString(2),
-                            FirstName = reader.GetString(3),
-                            LastName = reader.GetString(4),
-                            Email = reader.GetString(5),
-                            Role = reader.GetInt32(6)
+                            Id = row.GetInt32(0),
+                            Username = row.GetString(1),
+                            Password = row.GetString(2),
+                            FirstName = row.GetString(3),
+                            LastName = row.GetString(4),
+                            Email = row.GetString(5),
+                            Role = row.GetInt32(6)
                         }
                     )
                 );
@@ -396,7 +382,7 @@ namespace AssetsManagement.DAL
             return users.ToArray();
         }
 
-        private void ExecuteReader(string query, Action<IDataReader> rowConaumer)
+        private void ExecuteReader(string query, Action<IDataReader> rowConsumer)
         {
             using (var conn = new SqlConnection(ConnectionString))
             using (var command = conn.CreateCommand())
@@ -407,7 +393,7 @@ namespace AssetsManagement.DAL
 
                 while (reader.Read())
                 {
-                    rowConaumer.Invoke(reader);
+                    rowConsumer.Invoke(reader);
                 }
             }
         }
