@@ -18,17 +18,23 @@ namespace AssetsManagementForms
         public MainForm(IAssetManager assetManager)
         {
             this.assetManager = assetManager;
-            user = ExecuteAction(new LoginAction()) as User;
-
-            if (user == null)
-            {
-                Application.Exit();
-            }
+            Login();
             InitializeComponent();
             BuildAssetGridDataSource(assetManager.GetAssets());
             dataGridViewAssets.DataSource = assetGridDataSource;
             toolStripButtonNew.Enabled = assetGridDataSource.Count > 0;
-            
+            Text = $"{Text} - [{user.Username}]";
+        }
+
+        private void Login()
+        {
+            user = ExecuteAction(new LoginAction()) as User;
+
+            if (user == null)
+            {
+                Load += (s, e) => Close();
+                return;
+            }
         }
 
         private void buttonAddCity_Click(object sender, EventArgs e)
