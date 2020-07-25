@@ -23,7 +23,10 @@ namespace AssetsManagementForms
             BuildAssetGridDataSource(assetManager.GetAssets());
             dataGridViewAssets.DataSource = assetGridDataSource;
             toolStripButtonNew.Enabled = assetGridDataSource.Count > 0;
-            Text = $"{Text} - [{user.Username}]";
+            if (user != null)
+            {
+                Text = $"{Text} - [{user.Username}]";
+            }
         }
 
         private void Login()

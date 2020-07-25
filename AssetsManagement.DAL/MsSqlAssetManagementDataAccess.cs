@@ -9,28 +9,12 @@ namespace AssetsManagement.DAL
 {
     internal sealed class MsSqlAssetManagementDataAccess : IAssetManagementDataAccess
     {
-        private readonly string ConnectionString;
+        private readonly QueryExecuter queryExecuter;
 
         public MsSqlAssetManagementDataAccess()
         {
-            ConnectionString = ConfigurationManager.AppSettings.Get("ConnectionString");
-            
-            if (string.IsNullOrEmpty(ConnectionString)) 
-            {
-                throw new Exception("Database sonnection string is not defined");
-            }
-
-            using (var conn = new SqlConnection(ConnectionString)) 
-            {
-                try
-                {
-                    conn.Open();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Error openning connection to database {ex.Message}", ex);
-                }
-            }
+            var ConnectionString = ConfigurationManager.AppSettings.Get("ConnectionString");
+            queryExecuter = new QueryExecuter(ConnectionString);
         }
 
         public int AddAsset(Asset asset)
@@ -113,19 +97,7 @@ namespace AssetsManagement.DAL
 
         private int ExecuteScalar(string sql, Dictionary<string, object> parameters = null)
         {
-
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = sql;
-                foreach (var item in parameters)
-                {
-                    command.Parameters.AddWithValue(item.Key, item.Value);
-                }
-
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
+            return queryExecuter.ExecuteScalar(sql, parameters);
         }
 
         public int AddTenant(Tenant tenant)
@@ -164,18 +136,7 @@ namespace AssetsManagement.DAL
         private int ExecuteNonQuery(string sql, Dictionary<string, object> parameters = null)
         {
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = sql;
-                foreach (var item in parameters)
-                {
-                    command.Parameters.AddWithValue(item.Key, item.Value);
-                }
-
-                return command.ExecuteNonQuery();
-            }
+            return queryExecuter.ExecuteNonQuery(sql, parameters);
         }
 
         public Asset FindAssetByAddress(Address address)
@@ -376,25 +337,7 @@ namespace AssetsManagement.DAL
         
         private void ExecuteReader(string query, Action<IDataReader> rowConsumer, Dictionary<string, object> parameters = null)
         {
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                if (parameters != null)
-                {
-                    foreach (var item in parameters)
-                    {
-                        command.Parameters.AddWithValue(item.Key, item.Value);
-                    }
-                }
-                var reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    rowConsumer.Invoke(reader);
-                }
-            }
+            queryExecuter.ExecuteReader(query, rowConsumer, parameters);
         }
     }
 }
