@@ -45,38 +45,32 @@ namespace AssetsManagement.DAL
                          "INSERT INTO Asset (Owner, Address) VALUES (@owner, @AddressID);" +
                          "SELECT scope_identity();" + 
                          "COMMIT";
-            int assetId = -1;
-
-            using (var connection = new SqlConnection(ConnectionString))
-            using (var command = connection.CreateCommand())
-            {
-                connection.Open();
-                command.CommandText = sql;
-                command.Parameters.AddWithValue("@city", asset.Address.City.Symbol);
-                command.Parameters.AddWithValue("@street", asset.Address.Street);
-                command.Parameters.AddWithValue("@house_number", asset.Address.HouseNumber);
-                command.Parameters.AddWithValue("@owner", asset.Owner.Id);
-
-                assetId = Convert.ToInt32(command.ExecuteScalar());
-            }
-
-            return assetId;
+ 
+            return ExecuteScalar
+            (
+              sql,
+              new Dictionary<string, object>()
+              {
+                  ["@city"] = asset.Address.City.Symbol,
+                  ["@street"] = asset.Address.Street,
+                  ["@house_number"] = asset.Address.HouseNumber,
+                  ["@owner"] = asset.Owner.Id
+              }
+            );
         }
 
         public int AddCity(City city)
         {
-            String query = "INSERT INTO City (Symbol,Name) VALUES (@symbol,@name)";
+            ExecuteNonQuery
+            (
+               "INSERT INTO City (Symbol,Name) VALUES (@symbol,@name)",
+               new Dictionary<string, object>()
+               {
+                   ["@symbol"] = city.Symbol,
+                   ["@name"] = city.Name
+               }
+            );
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@symbol", city.Symbol);
-                command.Parameters.AddWithValue("@name", city.Name);
-
-                command.ExecuteNonQuery();
-            }
             return city.Symbol;
         }
 
@@ -87,19 +81,16 @@ namespace AssetsManagement.DAL
 
         public int AddOwner(Owner owner)
         {
-            String query = "INSERT INTO Owner (id,Name) VALUES (@id,@name)";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", owner.Id);
-                command.Parameters.AddWithValue("@name", owner.Name);
-
-                command.ExecuteNonQuery();
-            }
+            ExecuteNonQuery
+            (
+               "INSERT INTO Owner (id,Name) VALUES (@id,@name)",
+               new Dictionary<string, object>() 
+               { 
+                   ["@id"] = owner.Id,
+                   ["@name"] = owner.Name
+               }
+            );
 
             return owner.Id;
         }
@@ -108,67 +99,84 @@ namespace AssetsManagement.DAL
         {
             String query = "INSERT INTO RentalAgreement (Asset,Tenant,StartDate,EndDate) VALUES (@asset,@tenant,@start,@end);" +
                            "SELECT scope_identity();";
-            int id;
+            
+            return ExecuteScalar
+            (
+              query,
+              new Dictionary<string, object>()
+              {
+                  ["@asset"] = rentalAgreement.AssetId,
+                  ["@tenant"] = rentalAgreement.Tenant,
+                  ["@start"] = rentalAgreement.Start,
+                  ["@end"] = rentalAgreement.End
+              }
+            );
+        }
+
+        private int ExecuteScalar(string sql, Dictionary<string, object> parameters = null)
+        {
 
             using (var conn = new SqlConnection(ConnectionString))
             using (var command = conn.CreateCommand())
             {
                 conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@asset", rentalAgreement.AssetId);
-                command.Parameters.AddWithValue("@tenant", rentalAgreement.Tenant);
-                command.Parameters.AddWithValue("@start", rentalAgreement.Start);
-                command.Parameters.AddWithValue("@end", rentalAgreement.End);
+                command.CommandText = sql;
+                foreach (var item in parameters)
+                {
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+                }
 
-                id = Convert.ToInt32(command.ExecuteScalar());
+                return Convert.ToInt32(command.ExecuteScalar());
             }
-
-            return id;
         }
 
         public int AddTenant(Tenant tenant)
         {
-            String query = "INSERT INTO Tenant (id,Name) VALUES (@id,@name)";
-
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", tenant.Id);
-                command.Parameters.AddWithValue("@name", tenant.Name);
-
-                command.ExecuteNonQuery();
-            }
+            ExecuteNonQuery
+            (
+               "INSERT INTO Tenant (id,Name) VALUES (@id,@name)",
+               new Dictionary<string, object>() 
+               { 
+                   ["@id"] = tenant.Id,
+                   ["@name"] = tenant.Name
+               }
+            );
 
             return tenant.Id;
         }
 
         public void DeleteAsset(int id)
         {
-            String query = "DELETE Asset WHERE Id = @id";
-
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
+           ExecuteNonQuery
+           (
+               "DELETE Asset WHERE Id = @id",
+               new Dictionary<string, object>() { ["@id"] = id }
+           );
         }
 
         public void DeleteCity(int symbol)
         {
-            String query = "DELETE City WHERE Symbol = @symbol";
-            
+            ExecuteNonQuery
+            (
+                "DELETE City WHERE Symbol = @symbol",
+                new Dictionary<string, object>() { ["@symbol"] = symbol }
+            );
+        }
+
+        private int ExecuteNonQuery(string sql, Dictionary<string, object> parameters = null)
+        {
+
             using (var conn = new SqlConnection(ConnectionString))
             using (var command = conn.CreateCommand())
             {
                 conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@symbol", symbol);
-                command.ExecuteNonQuery();
+                command.CommandText = sql;
+                foreach (var item in parameters)
+                {
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+                }
+
+                return command.ExecuteNonQuery();
             }
         }
 
@@ -180,20 +188,19 @@ namespace AssetsManagement.DAL
         public Owner FindOwnerById(int id)
         {
             Owner owner = null;
-            String query = "SELECT Id,Name FROM Owner WHERE Id = @id";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", id);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    owner = new Owner { Id = reader.GetInt32(0), Name = reader.GetString(1) };
-                }
-            }
+            ExecuteReader("SELECT Id,Name FROM Owner WHERE Id = @id",
+               row =>
+               {
+                   owner = new Owner 
+                   { 
+                       Id = row.GetInt32(0), 
+                       Name = row.GetString(1) 
+                   };
+               },
+               new Dictionary<string, object>() { ["@id"] = id }
+             );
+
 
             return owner;
         }
@@ -201,26 +208,21 @@ namespace AssetsManagement.DAL
         public RentalAgreement FindRentalAgreementtByAssetId(int id)
         {
             RentalAgreement rentalAgreement = null;
-            String query = "SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement WHERE Asset = @id";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", id);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    rentalAgreement = new RentalAgreement { 
-                        Id = reader.GetInt32(0), 
-                        AssetId = reader.GetInt32(1),
-                        Tenant  = reader.GetInt32(2),
-                        Start  = reader.GetDateTime(3),
-                        End  = reader.GetDateTime(4),
-                    };
-                }
-            }
+            ExecuteReader("SELECT Id,Asset,Tenant,StartDate,EndDate FROM RentalAgreement WHERE Asset = @id",
+              row =>
+              {
+                  rentalAgreement = new RentalAgreement
+                  {
+                      Id = row.GetInt32(0),
+                      AssetId = row.GetInt32(1),
+                      Tenant = row.GetInt32(2),
+                      Start = row.GetDateTime(3),
+                      End = row.GetDateTime(4),
+                  };
+              },
+              new Dictionary<string, object>() { ["@id"] = id }
+            );
 
             return rentalAgreement;
         }
@@ -228,20 +230,19 @@ namespace AssetsManagement.DAL
         public Tenant FindTenatById(int id)
         {
             Tenant tenant = null;
-            String query = "SELECT Id,Name FROM Tenant WHERE Id = @id";
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@id", id);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    tenant = new Tenant { Id = reader.GetInt32(0), Name = reader.GetString(1) };
-                }
-            }
+            ExecuteReader("SELECT Id,Name FROM Tenant WHERE Id = @id",
+              row =>
+              {
+                  tenant =
+                      new Tenant
+                      {
+                          Id = row.GetInt32(0),
+                          Name = row.GetString(1)
+                      };
+              },
+              new Dictionary<string, object>() { ["@id"] = id }
+            );
 
             return tenant;
         }
@@ -256,30 +257,22 @@ namespace AssetsManagement.DAL
                          "INNER JOIN [City] on [Address].[City] = [City].[Symbol]";
             List<Asset> assets = new List<Asset>();
 
-            using (var conn = new SqlConnection(ConnectionString))
-            using (var command = conn.CreateCommand())
-            {
-                conn.Open();
-                command.CommandText = sql;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    assets.Add(
-                        new Asset
-                        {
-                            Id = reader.GetInt32(0),
-                            Owner = new Owner { Id = reader.GetInt32(1), Name = reader.GetString(2) },
-                            Address = new Address
-                            {
-                                City = new City { Symbol = reader.GetInt32(3), Name = reader.GetString(4) },
-                                Street = reader.GetString(5),
-                                HouseNumber = reader.GetInt32(6)
-                            }
-                        }
-                    );
-                }
-            }
-
+            ExecuteReader(sql,
+              row =>
+              assets.Add(
+                  new Asset
+                  {
+                      Id = row.GetInt32(0),
+                      Owner = new Owner { Id = row.GetInt32(1), Name = row.GetString(2) },
+                      Address = new Address
+                      {
+                          City = new City { Symbol = row.GetInt32(3), Name = row.GetString(4) },
+                          Street = row.GetString(5),
+                          HouseNumber = row.GetInt32(6)
+                      }
+                  }
+                )
+              );
             return assets.ToArray();
         }
 
@@ -382,13 +375,21 @@ namespace AssetsManagement.DAL
             return users.ToArray();
         }
 
-        private void ExecuteReader(string query, Action<IDataReader> rowConsumer)
+        
+        private void ExecuteReader(string query, Action<IDataReader> rowConsumer, Dictionary<string, object> parameters = null)
         {
             using (var conn = new SqlConnection(ConnectionString))
             using (var command = conn.CreateCommand())
             {
                 conn.Open();
                 command.CommandText = query;
+                if (parameters != null)
+                {
+                    foreach (var item in parameters)
+                    {
+                        command.Parameters.AddWithValue(item.Key, item.Value);
+                    }
+                }
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
