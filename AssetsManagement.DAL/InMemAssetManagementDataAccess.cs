@@ -10,7 +10,7 @@ namespace AssetsManagement.DAL
     /// memory.
     /// This class is useful for testing.
     /// </summary>
-    class InMemAssetManagementDataAccess : IAssetManagementDataAccess
+    internal sealed class InMemAssetManagementDataAccess : IAssetManagementDataAccess
     {
         /// <summary>
         /// Stores cities in key->value map

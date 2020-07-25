@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
-using System.Threading;
 using AssetsManagement.Model;
 
 namespace AssetsManagement.DAL
 {
-    public class MsSqlAssetManagementDataAccess : IAssetManagementDataAccess
+    internal sealed class MsSqlAssetManagementDataAccess : IAssetManagementDataAccess
     {
         private readonly string ConnectionString;
 
